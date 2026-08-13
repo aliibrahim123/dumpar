@@ -1,0 +1,34 @@
+// everything is a symbol, a globally unique primitive, numbers are predifiened symbols
+symbol a, b, c;
+
+// you can create data structures and index them
+let arr = [1, 2, c];
+let obj = { a = 1, 3 = b, [arr[2]] = { b = [..arr, b] } }; 
+	// => { a = 1, c = { b = [1, 2, c, b] }, 3 = b }
+
+// map expression, the heart of unimap
+let mapped = obj.a: {
+	// if a pattern is matched, the arm expression is evaluated
+	a => 1,
+	1 => a,
+	// match anything
+	_ => 2,
+	// structural matching with destructuring support
+	{ a: [1, 2, ..let arr], let b } => arr[b]
+}; // => a
+
+// you also have pipe operator
+let piped = 1 |> [_, 2, 3] |> { [_[1]] = _ } |> dbg(_) |> _: {
+	{ 2: [1, ..let arr] } => arr[1],
+	{ 2: [2, ..let arr] } => arr[2],
+}; //> print { 2: [1, 2, 3] } then evalued to 2
+
+// you also have function, with recusion and composition
+fn filter(arr, filtered) => arr: {
+	[] => [],
+	[filtered, ..let rest] => filter(rest, filtered),
+	[let x, ..let rest] => [x, ..filter(rest, filtered)],
+};
+let filtered = filter([1, 2, 3], 2); // => [1, 3]
+
+fn main() => dbg(arr) |> dbg(obj) |> dbg(mapped) |> dbg(piped) |> dbg(filtered);

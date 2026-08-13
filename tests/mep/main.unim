@@ -1,0 +1,27 @@
+import tests.nb { nb_tests };
+import tests.arith { arith_tests };
+import tests.logic { logic_tests };
+import tests.shift { shift_tests };
+import tests.comp { comp_tests };
+import tests.cpu_com { cpu_common_tests };
+import tests.mem { mem_tests };
+import math.arith { add16 };
+import math.nb { zeros4 };
+symbol total, failed, continue, end, given, expected;
+
+fn init () => [zeros4, zeros4, [
+	..nb_tests(),
+	..arith_tests(),
+	..logic_tests(),
+	..shift_tests(),
+	..comp_tests(),
+	..cpu_common_tests(),
+	..mem_tests(),
+]];
+fn loop (state) => state[2]: {
+	[] => [end, [total, state[0], failed, state[1]]],
+	[[let id, let a, let b], ..let tests] => a: {
+		b => state[1],
+		_ => dbg([failed, id, given, a, expected, b]) |> add16(state[1], [1, 0, 0, 0]),
+	} |> [continue, [add16(state[0], [1, 0, 0, 0]), _, tests]],
+};

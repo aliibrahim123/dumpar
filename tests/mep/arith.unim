@@ -1,0 +1,111 @@
+import math.nb { nb, a, b, c, d, e, f, zero, zeros17 };
+import math.arith { add_op, sub, mult, negate, abs, udiv, div };
+
+fn arith_tests () => [
+	[63, add_op(zero, zero, 0), [zero, 0]],
+	[64, add_op(nb([1]), nb([1]), 0), [nb([2]), 0]],
+	[65, add_op(nb([1, 2, 3, 4]), nb([4, 3, 2, 1]), 0), [nb([5, 5, 5, 5]), 0]],
+	[66, add_op(nb([f]), nb([1]), 0), [nb([1, 0]), 0]],
+	[67, add_op(nb([f, f, f, f]), nb([1]), 0), [nb([1, 0, 0, 0, 0]), 0]],
+	[68, add_op(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), nb([1]), 0), [zero, 1]],
+	[69, add_op(zero, zero, 1), [nb([1]), 0]],
+	[70, add_op(nb([f, f]), zero, 1), [nb([1, 0, 0]), 0]],
+	[71, sub(zero, zero), zero],
+	[72, sub(nb([5]), nb([3])), nb([2])],
+	[73, sub(nb([1, 0]), nb([1])), nb([f])],
+	[74, sub(nb([1, 0, 0, 0]), nb([1])), nb([f, f, f])],
+	[75, sub(nb([1, 2, 3, 4]), nb([1, 1, 1, 1])), nb([1, 2, 3])],
+	[76, sub(zero, nb([1])), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])],
+	[77, sub(nb([3]), nb([5])), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, e])],
+	[78, mult(nb([1]), nb([1])), [nb([1]), zero]],
+	[79, negate(zero), zero],
+	[80, negate(nb([1])), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])],
+	[81, negate(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])), nb([1])],
+	[82, negate(nb([5])), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, b])],
+	[83, abs(zero), zero],
+	[84, abs(nb([5])), nb([5])],
+	[85, abs(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, b])), nb([5])],
+	[86, 
+		abs(nb([8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])), 
+		nb([8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+	],
+	[87, mult(zero, zero), [zero, zero]],
+	[88, mult(nb([1]), nb([1])), [nb([1]), zero]],
+	[89, mult(nb([5]), nb([5])), [nb([1, 9]), zero]],
+	[90, mult(nb([1, 2, 3]), nb([1, 2])), [nb([1, 4, 7, 6]), zero]],
+	[91, 
+		mult(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), nb([1])), 
+		[nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), zero]
+	], 
+	[92, 
+		mult(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), nb([2])), 
+		[nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, e]), nb([1])
+	]],
+	[93, mult(
+		nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), 
+		nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])
+	), [nb([1]), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, e])],
+	],
+	[94, mult(nb([1, 2, 3, 4]), nb([1, 0])), [nb([1, 2, 3, 4, 0]), zero]],
+	[95, mult(nb([1, 2, 3, 4]), nb([1, 0, 0])), [nb([1, 2, 3, 4, 0, 0]), zero]],	
+	[96, 
+		mult(nb([1, 2, 3, 4]), nb([5, 6, 7, 8])), 
+		[nb([6, 2, 6, 0, 0, 6, 0]), zero]
+	], [97, 
+		mult(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), nb([5])), 
+		[nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, b]), nb([4])]
+	], 
+	[98, mult(
+		nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, e]), 
+		nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, d])
+	), [nb([6]), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, b]) ]],
+	[99, 
+		mult(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, b]), nb([5])
+		), [nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, e, 7]), nb([4]) ]
+	], [100, 
+		mult(nb([7, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), nb([2])), 
+		[nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, e]), zero
+	]], 
+	[101, mult(
+		nb([8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), 
+		nb([8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+	), [zero, nb([4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])]],
+	[102, udiv(nb([5]), zero), [zero, nb([5])]],
+	[103, udiv(zero, zero), [zero, zero]],
+	[104, udiv(nb([a]), nb([2])), [nb([5]), zero]],
+	[105, udiv(nb([a]), nb([3])), [nb([3]), nb([1])]],
+	[106, udiv(nb([3]), nb([a])), [zero, nb([3])]],
+	[107, udiv(nb([1, 2, 3, 4]), nb([1])), [nb([1, 2, 3, 4]), zero]],
+	[108, udiv(nb([1, 2, 3, 4]), nb([1, 2, 3, 4])), [nb([1]), zero]],
+	[109, 
+		udiv(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), nb([2])), 
+		[nb([7, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), nb([1])]
+	],
+	[110, div(nb([5]), zero), [zero, nb([5])]],
+	[111, div(nb([a]), nb([3])), [nb([3]), nb([1])]],
+	[112, 
+		div(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, 6]), nb([3])), 
+		[
+			nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, d]), 
+			nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])  
+		]
+	],
+	[113, 
+		div(nb([a]), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, d])), 
+		[nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, d]), nb([1])]
+	],
+	[114, 
+		div(
+			nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, 6]), 
+			nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, d])  
+		), 
+		[nb([3]), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])]
+	],
+	[115, 
+		div(
+			nb([8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), 
+			nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])
+		), 
+		[nb([8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]), zero]
+	],
+];

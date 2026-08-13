@@ -1,0 +1,119 @@
+import cpu.mem { 
+	read_mem_16, read_mem_32, read_mem_64, read_mem_8, write_mem_16, write_mem_64, write_mem_32, write_mem_8 
+};
+import cpu.common { mem };
+import math.nb { a, b, c, d, e, f };
+let st_mem = { mem = {} };
+
+let zero128 = [
+	0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0,
+	0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0
+];
+let zero64  = [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0];
+let zero32  = [0,0,0,0, 0,0,0,0];
+let zero16  = [0,0,0,0];
+let zero8   = [0,0];
+
+let v64 = [1,2,3,4, 5,6,7,8, 9,a,b,c, d,e,f,0];
+let v32 = [1,2,3,4, 5,6,7,8];
+let v16 = [a,b,c,d];
+let v8  = [e,f];
+
+fn mem_tests () => [
+	// ========================================================================
+	// --- 64-BIT MEMORY TESTS ---
+	// 450: Read from uninitialized memory -> Returns 64 zeros
+	[450, read_mem_64(st_mem, [0, 1, 0, 0, 0, 0, 0, 0]), zero64],
+	// 451: Write 64-bit at Offset 0, Read 64-bit at Offset 0 -> Matches
+	[
+		451, 
+		write_mem_64(st_mem, [0, 1, 0, 0, 0, 0, 0, 0], v64) 
+			|> read_mem_64(_, [0, 1, 0, 0, 0, 0, 0, 0]), 
+		v64
+	],
+	// 452: Write 64-bit at Offset 8, Read 64-bit at Offset 8 -> Matches
+	[
+		452, 
+		write_mem_64(st_mem, [8, 1, 0, 0, 0, 0, 0, 0], v64) 
+			|> read_mem_64(_, [8, 1, 0, 0, 0, 0, 0, 0]), 
+		v64
+	],
+	// 453: Adjacency Test -> Writing at Offset 0 leaves Offset 8 as zeros!
+	[
+		453, 
+		write_mem_64(st_mem, [0, 1, 0, 0, 0, 0, 0, 0], v64) 
+			|> read_mem_64(_, [8, 1, 0, 0, 0, 0, 0, 0]), 
+		zero64
+	],
+	// ========================================================================
+	// --- 32-BIT MEMORY TESTS ---
+	// 454: Write 32-bit at Offset 4, Read 32-bit at Offset 4 -> Matches
+	[
+		454, 
+		write_mem_32(st_mem, [4, 1, 0, 0, 0, 0, 0, 0], v32) 
+			|> read_mem_32(_, [4, 1, 0, 0, 0, 0, 0, 0]), 
+		v32
+	],
+	// 455: Write 32-bit at Offset 12, Read 32-bit at Offset 12 -> Matches
+	[
+		455, 
+		write_mem_32(st_mem, [12, 1, 0, 0, 0, 0, 0, 0], v32) 
+			|> read_mem_32(_, [12, 1, 0, 0, 0, 0, 0, 0]), 
+		v32
+	],
+	// 456: Overlap Test -> Write 64-bit at 0, Read 32-bit at Offset 4 (Upper half of 64-bit)
+	[
+		456, 
+		write_mem_64(st_mem, [0, 1, 0, 0, 0, 0, 0, 0], v64) 
+			|> read_mem_32(_, [4, 1, 0, 0, 0, 0, 0, 0]), 
+		[9, a, b, c, d, e, f, 0] // Upper half of v64
+	],
+	// ========================================================================
+	// --- 16-BIT MEMORY TESTS ---
+	// 457: Write 16-bit at Offset 2, Read 16-bit at Offset 2 -> Matches
+	[
+		457, 
+		write_mem_16(st_mem, [2, 1, 0, 0, 0, 0, 0, 0], v16) 
+			|> read_mem_16(_, [2, 1, 0, 0, 0, 0, 0, 0]), 
+		v16
+	],
+	// 458: Write 16-bit at Offset 14, Read 16-bit at Offset 14 -> Matches
+	[
+		458, 
+		write_mem_16(st_mem, [14, 1, 0, 0, 0, 0, 0, 0], v16) 
+			|> read_mem_16(_, [14, 1, 0, 0, 0, 0, 0, 0]), 
+		v16
+	],
+	// 459: Overlap Test -> Write 32-bit at Offset 4, Read 16-bit at Offset 6
+	[
+		459, 
+		write_mem_32(st_mem, [4, 1, 0, 0, 0, 0, 0, 0], v32) 
+			|> read_mem_16(_, [6, 1, 0, 0, 0, 0, 0, 0]), 
+		[5, 6, 7, 8] // Upper half of v32
+	],
+	// ========================================================================
+	// --- 8-BIT MEMORY TESTS ---
+	// 460: Write 8-bit at Offset 1, Read 8-bit at Offset 1 -> Matches
+	[
+		460, 
+		write_mem_8(st_mem, [1, 1, 0, 0, 0, 0, 0, 0], v8) 
+			|> read_mem_8(_, [1, 1, 0, 0, 0, 0, 0, 0]), 
+		v8
+	],
+	// 461: Write 8-bit at Offset 15, Read 8-bit at Offset 15 -> Matches
+	[
+		461, 
+		write_mem_8(st_mem, [15, 1, 0, 0, 0, 0, 0, 0], v8) 
+			|> read_mem_8(_, [15, 1, 0, 0, 0, 0, 0, 0]), 
+		v8
+	],
+	// 462: Dense Modification -> Write 8-bit at Offset 0, Write 8-bit at Offset 1
+	// Then read 16-bit at Offset 0 to verify they merged seamlessly!
+	[
+		462, 
+		write_mem_8(st_mem, [0, 1, 0, 0, 0, 0, 0, 0], [1, 2])
+			|> write_mem_8(_, [1, 1, 0, 0, 0, 0, 0, 0], [3, 4])
+			|> read_mem_16(_, [0, 1, 0, 0, 0, 0, 0, 0]),
+		[1, 2, 3, 4]
+	]
+];

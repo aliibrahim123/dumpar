@@ -1,0 +1,10 @@
+import "a.stomd" as B
+
+struct A {
+	v: vuint,
+	c: B.A
+}
+
+A {
+	v: 3, c: a
+}

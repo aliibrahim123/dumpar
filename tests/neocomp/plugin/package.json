@@ -1,0 +1,10 @@
+{
+	"name": "plugin",
+	"version": "1.0.0",
+	"description": "",
+	"type": "module",
+	"dependencies": {
+		"@neocomp/core": "file:../../",
+		"@neocomp/vite-plugin": "file:../../vite-plugin"
+	}
+}

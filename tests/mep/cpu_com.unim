@@ -1,0 +1,70 @@
+import math.nb { a, b, c, d, e, f, nb, zero, one };
+import cpu.entry { init_state };
+import cpu.common { 
+	dec_3reg, dec_2reg, dec_4reg, dec_reg-1, dec_reg0, dec_reg1, dec_reg2,
+	write_reg, write_2reg, read_cond, write_cond, regs, c0
+};
+
+fn cpu_common_tests () => [
+	[234, dec_3reg(0, 0, 0, 0), [0, 0, 0]],
+	[235, dec_3reg(e, f, f, f), [31, 31, 31]],
+	[236, dec_3reg(e, 3, 0, 0), [31, 0, 0]],
+	[237, dec_3reg(0, c, 7, 0), [0, 31, 0]],
+	[238, dec_3reg(0, 0, 8, f), [0, 0, 31]],
+	[239, dec_3reg(2, 8, 8, 1), [1, 2, 3]],
+	[240, dec_3reg(4, 5, d, 7), [10, 21, 15]],
+	[241, dec_reg-1(0, 0), 0],
+	[242, dec_reg-1(f, 0), 15], 
+	[243, dec_reg-1(0, 1), 16], 
+	[244, dec_reg-1(f, 1), 31], 
+	[245, dec_reg-1(5, 1), 21],
+	[246, dec_reg0(0, 0), 0],
+	[247, dec_reg0(e, f), 31],
+	[248, dec_reg0(4, c), 2],  
+	[249, dec_reg1(0, 0), 0],
+	[250, dec_reg1(f, f), 31],
+	[251, dec_reg1(c, 0), 3],  
+	[252, dec_reg2(0, 0), 0],
+	[253, dec_reg2(f, f), 31],
+	[254, dec_reg2(0, 2), 4],  
+	[255, dec_4reg(0, 0, 0, 0, 0), [0, 0, 0, 0]],
+	[256, dec_4reg(f, f, f, f, f), [31, 31, 31, 31]],
+	[257, dec_4reg(1, 4, c, 0, 2), [1, 2, 3, 4]], 
+	[258, dec_4reg(f, f, d, 1, 0), [31, 15, 7, 0]],
+	[259, dec_2reg(0, 0, 0), [0, 0]],
+	[260, dec_2reg(f, f, f), [31, 31]],
+	[261, dec_2reg(c, f, f), [31, 31]], 
+	[262, dec_2reg(4, 3, b), [13, 22]],
+	[
+		263, 
+		write_reg(init_state, 1, nb([f, f])), 
+		{ ..init_state, regs = { ..init_state.regs, 1 = nb([f, f]) } }
+	],
+	[264, write_reg(init_state, 0, nb([f, f])), init_state],
+	[
+		265, 
+		write_2reg(init_state, 1, nb([a]), 2, nb([b])),
+		{ ..init_state, regs = { ..init_state.regs, 1 = nb([a]), 2 = nb([b]) } }
+	], [
+		266, 
+		write_2reg(init_state, 0, nb([a]), 2, nb([b])),
+		{ ..init_state, regs = { ..init_state.regs, 2 = nb([b]) } }
+	], [
+		267, 
+		write_2reg(init_state, 1, nb([a]), 0, nb([b])),
+		{ ..init_state, regs = { ..init_state.regs, 1 = nb([a]) } }
+	],
+	[268, write_2reg(init_state, 0, nb([a]), 0, nb([b])), init_state],
+	[
+		269, 
+		write_2reg(init_state, 1, nb([a]), 1, nb([b])),
+		{ ..init_state, regs = { ..init_state.regs, 1 = nb([b]) } }
+	],
+	[270, read_cond(init_state, 0), 0],
+	[271, read_cond({ ..init_state, c0 = 1 }, 0), 1],
+	[272, read_cond(init_state, 1), 0], 
+	[273, read_cond({ ..init_state, regs = { ..init_state.regs, 1 = nb([5]) } }, 1), 1],
+	[277, write_cond(init_state, 0, 1), { ..init_state, c0 = 1 }],
+	[278, write_cond(init_state, 1, 1), { ..init_state, regs = { ..init_state.regs, 1 = one } }],
+	[279, write_cond(init_state, 2, 0), { ..init_state, regs = { ..init_state.regs, 2 = zero } }],
+];

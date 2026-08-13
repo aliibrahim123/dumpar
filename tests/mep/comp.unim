@@ -1,0 +1,56 @@
+import math.nb { nb, f, b, zero };
+import math.comp { sign, pos, neg, eq, comp, ucomp, min, max, umin, umax, sign_ext8, sign_ext16, sign_ext32 };
+
+fn comp_tests () => [
+	[116, sign(zero), pos],
+	[117, sign(nb([1])), pos],
+	[118, sign(nb([7, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])), pos],
+	[119, sign(nb([8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])), neg],
+	[120, sign(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])), neg],
+	[121, eq(nb([1]), nb([1])), 1],
+	[122, eq(nb([1]), nb([2])), 0],
+	[123, eq(zero, nb([1])), 0],
+	[124, comp(nb([5]), nb([5])), 0],
+	[125, comp(nb([5]), nb([3])), 1], 
+	[126, comp(nb([3]), nb([5])), 2], 
+	[127, comp(
+		nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), 
+		nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, b])
+	), 1], 
+	[128, comp(
+		nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, b]), 
+		nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])
+	), 2], 
+	[129, comp(nb([5]), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])), 1], 
+	[130, comp(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), nb([5])), 2], 
+	[131, comp(
+		nb([7, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), 
+		nb([8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+	), 1],
+	[132, ucomp(nb([5]), nb([5])), 0],
+	[133, ucomp(nb([5]), nb([3])), 1], 
+	[134, ucomp(nb([3]), nb([5])), 2], 
+	[135, ucomp(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), nb([5])), 1], 
+	[136, ucomp(nb([5]), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])), 2], 
+	[137, min(nb([5]), nb([3])), nb([3])],
+	[138, max(nb([5]), nb([3])), nb([5])],
+	[139, 
+		min(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), nb([5])), 
+		nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])
+	],
+	[140, max(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), nb([5])), nb([5])],
+	[141, umin(nb([5]), nb([3])), nb([3])],
+	[142, umax(nb([5]), nb([3])), nb([5])],	
+	[143, umin(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), nb([5])), nb([5])],
+	[144, 
+		umax(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), nb([5])), 
+		nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])
+	],
+	[227, sign_ext8(nb([7, f])), nb([7, f])],
+	[228, sign_ext8(nb([8, 0])), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, 8, 0])],
+	[229, sign_ext8(nb([f, b])), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, b])],
+	[230, sign_ext16(nb([7, f, f, f])), nb([7, f, f, f])],
+	[231, sign_ext16(nb([8, 0, 0, 0])), nb([f, f, f, f, f, f, f, f, f, f, f, f, 8, 0, 0, 0])],
+	[232, sign_ext32(nb([7, f, f, f, f, f, f, f])), nb([7, f, f, f, f, f, f, f])],
+	[233, sign_ext32(nb([8, 0, 0, 0, 0, 0, 0, 0])), nb([f, f, f, f, f, f, f, f, 8, 0, 0, 0, 0, 0, 0, 0])],
+];

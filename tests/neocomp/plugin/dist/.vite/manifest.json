@@ -1,0 +1,17 @@
+{
+  "../../src/html-parser.ts": {
+    "file": "chunks/html-parser-DTAS5OlA.js",
+    "name": "html-parser",
+    "src": "../../src/html-parser.ts",
+    "isDynamicEntry": true
+  },
+  "src/index.ts": {
+    "file": "index.js",
+    "name": "index",
+    "src": "src/index.ts",
+    "isEntry": true,
+    "dynamicImports": [
+      "../../src/html-parser.ts"
+    ]
+  }
+}

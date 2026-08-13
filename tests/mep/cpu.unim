@@ -1,0 +1,6 @@
+import cpu.entry { init_state, run_iter };
+import cpu.common { mem };
+fn init () => { ..init_state, mem = { 0 = { 0 = { 0 = { 0 = { 0 = { 0 = { 
+	0 = [1, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+} } } } } } } };
+fn loop (state) => run_iter(state);

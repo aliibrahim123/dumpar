@@ -1,0 +1,418 @@
+	/// The `abbr` attribute specifies an abbreviated form of the element's content.
+	pub struct abbr;
+	/// The `accept` attribute specifies a list of types the server accepts, typically a file type.
+	pub struct accept;
+	/// The `accept-charset` attribute specifies the character encodings that are to be used for the form submission.
+	pub struct accept_charset;
+	/// The [`accesskey`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/accesskey) attribute specifies a shortcut key to activate or focus an element.
+	pub struct accesskey;
+	/// The `action` attribute defines the URL to which the form data will be sent.
+	pub struct action;
+	/// The `align` attribute specifies the alignment of an element.
+	pub struct align;
+	/// The `allow` attribute defines a feature policy for the content in an iframe.
+	pub struct allow;
+	/// The `allowfullscreen` attribute allows the iframe to be displayed in fullscreen mode.
+	pub struct allowfullscreen;
+	/// The `allowpaymentrequest` attribute allows a cross-origin iframe to invoke the Payment Request API.
+	pub struct allowpaymentrequest;
+	/// The `alt` attribute provides alternative text for an image, if the image cannot be displayed.
+	pub struct alt;
+	/// The [`aria-activedescendant`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-activedescendant) attribute identifies the currently active element when DOM focus is on a composite widget, textbox, group, or application.
+	pub struct aria_activedescendant;
+	/// The [`aria-atomic`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-atomic) attribute indicates whether assistive technologies will present all, or only parts of, the changed region based on the change notifications defined by the aria-relevant attribute.
+	pub struct aria_atomic;
+	/// The [`aria-autocomplete`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-autocomplete) attribute indicates whether user input completion suggestions are provided.
+	pub struct aria_autocomplete;
+	/// The [`aria-busy`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-busy) attribute indicates whether an element, and its subtree, are currently being updated.
+	pub struct aria_busy;
+	/// The [`aria-checked`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-checked) attribute indicates the current "checked" state of checkboxes, radio buttons, and other widgets.
+	pub struct aria_checked;
+	/// The [`aria-colcount`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-colcount) attribute defines the total number of columns in a table, grid, or treegrid.
+	pub struct aria_colcount;
+	/// The [`aria-colindex`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-colindex) attribute defines an element's column index or position with respect to the total number of columns within a table, grid, or treegrid.
+	pub struct aria_colindex;
+	/// The [`aria-colspan`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-colspan) attribute defines the number of columns spanned by a cell or gridcell within a table, grid, or treegrid.
+	pub struct aria_colspan;
+	/// The [`aria-controls`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-controls) attribute identifies the element (or elements) whose contents or presence are controlled by the current element.
+	pub struct aria_controls;
+	/// The [`aria-current`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-current) attribute indicates the element representing the current item within a container or set of related elements.
+	pub struct aria_current;
+	/// The [`aria-describedby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-describedby) attribute identifies the element (or elements) that describes the object.
+	pub struct aria_describedby;
+	/// The [`aria-description`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-description) attribute provides a string value that describes or annotates the current element.
+	pub struct aria_description;
+	/// The [`aria-details`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-details) attribute identifies the element that provides a detailed, extended description for the object.
+	pub struct aria_details;
+	/// The [`aria-disabled`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-disabled) attribute indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
+	pub struct aria_disabled;
+	/// The [`aria-dropeffect`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-dropeffect) attribute indicates what functions can be performed when a dragged object is released on the drop target.
+	pub struct aria_dropeffect;
+	/// The [`aria-errormessage`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-errormessage) attribute identifies the element that provides an error message for the object.
+	pub struct aria_errormessage;
+	/// The [`aria-expanded`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-expanded) attribute indicates whether an element, or another grouping element it controls, is currently expanded or collapsed.
+	pub struct aria_expanded;
+	/// The [`aria-flowto`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-flowto) attribute identifies the next element (or elements) in an alternate reading order of content.
+	pub struct aria_flowto;
+	/// The [`aria-grabbed`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-grabbed) attribute indicates an element's "grabbed" state in a drag-and-drop operation.
+	pub struct aria_grabbed;
+	/// The [`aria-haspopup`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-haspopup) attribute indicates the availability and type of interactive popup element, such as menu or dialog, that can be triggered by an element.
+	pub struct aria_haspopup;
+	/// The [`aria-hidden`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-hidden) attribute indicates whether the element is exposed to an accessibility API.
+	pub struct aria_hidden;
+	/// The [`aria-invalid`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-invalid) attribute indicates the entered value does not conform to the format expected by the application.
+	pub struct aria_invalid;
+	/// The [`aria-keyshortcuts`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-keyshortcuts) attribute indicates keyboard shortcuts that an author has implemented to activate or give focus to an element.
+	pub struct aria_keyshortcuts;
+	/// The [`aria-label`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-label) attribute defines a string value that labels the current element.
+	pub struct aria_label;
+	/// The [`aria-labelledby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-labelledby) attribute identifies the element (or elements) that labels the current element.
+	pub struct aria_labelledby;
+	/// The [`aria-live`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-live) attribute indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region.
+	pub struct aria_live;
+	/// The [`aria-modal`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-modal) attribute indicates whether an element is modal when displayed.
+	pub struct aria_modal;
+	/// The [`aria-multiline`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-multiline) attribute indicates whether a text box accepts multiple lines of input or only a single line.
+	pub struct aria_multiline;
+	/// The [`aria-multiselectable`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-multiselectable) attribute indicates that the user may select more than one item from the current selectable descendants.
+	pub struct aria_multiselectable;
+	/// The [`aria-orientation`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-orientation) attribute indicates whether the element's orientation is horizontal, vertical, or unknown/ambiguous.
+	pub struct aria_orientation;
+	/// The [`aria-owns`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-owns) attribute identifies an element (or elements) in order to define a relationship between the element with `aria-owns` and the target element.
+	pub struct aria_owns;
+	/// The [`aria-placeholder`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-placeholder) attribute defines a short hint (a word or short phrase) intended to aid the user with data entry when the control has no value.
+	pub struct aria_placeholder;
+	/// The [`aria-posinset`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-posinset) attribute defines an element's position within a set or treegrid.
+	pub struct aria_posinset;
+	/// The [`aria-pressed`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-pressed) attribute indicates the current "pressed" state of toggle buttons.
+	pub struct aria_pressed;
+	/// The [`aria-readonly`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-readonly) attribute indicates that the element is not editable, but is otherwise operable.
+	pub struct aria_readonly;
+	/// The [`aria-relevant`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-relevant) attribute indicates what user agent changes to the accessibility tree should be monitored.
+	pub struct aria_relevant;
+	/// The [`aria-required`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-required) attribute indicates that user input is required on the element before a form may be submitted.
+	pub struct aria_required;
+	/// The [`aria-roledescription`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-roledescription) attribute defines a human-readable, author-localized description for the role of an element.
+	pub struct aria_roledescription;
+	/// The [`aria-rowcount`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-rowcount) attribute defines the total number of rows in a table, grid, or treegrid.
+	pub struct aria_rowcount;
+	/// The [`aria-rowindex`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-rowindex) attribute defines an element's row index or position with respect to the total number of rows within a table, grid, or treegrid.
+	pub struct aria_rowindex;
+	/// The [`aria-rowspan`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-rowspan) attribute defines the number of rows spanned by a cell or gridcell within a table, grid, or treegrid.
+	pub struct aria_rowspan;
+	/// The [`aria-selected`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-selected) attribute indicates the current "selected" state of various widgets.
+	pub struct aria_selected;
+	/// The [`aria-setsize`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-setsize) attribute defines the number of items in the current set of listitems or treeitems.
+	pub struct aria_setsize;
+	/// The [`aria-sort`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-sort) attribute indicates if items in a table or grid are sorted in ascending or descending order.
+	pub struct aria_sort;
+	/// The [`aria-valuemax`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-valuemax) attribute defines the maximum allowed value for a range widget.
+	pub struct aria_valuemax;
+	/// The [`aria-valuemin`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-valuemin) attribute defines the minimum allowed value for a range widget.
+	pub struct aria_valuemin;
+	/// The [`aria-valuenow`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-valuenow) attribute defines the current value for a range widget.
+	pub struct aria_valuenow;
+	/// The [`aria-valuetext`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-valuetext) attribute defines the human-readable text alternative of aria-valuenow for a range widget.
+	pub struct aria_valuetext;
+	/// The `attributionsrc` attribute indicates that you want the browser to send an `Attribution-Reporting-Eligible` header along with a request.
+	pub struct attributionsrc;
+	/// The [`autocapitalize`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/autocapitalize) attribute controls whether and how text input is automatically capitalized as it is entered/edited by the user.
+	pub struct autocapitalize;
+	/// The `autocomplete` attribute indicates whether an input field can have its value automatically completed by the browser.
+	pub struct autocomplete;
+	/// The [`autofocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/autofocus) attribute indicates that an element should be focused on page load.
+	pub struct autofocus;
+	/// The `autoplay` attribute indicates that the media should start playing as soon as it is loaded.
+	pub struct autoplay;
+	/// The `background` attribute sets the URL of the background image for the document.
+	pub struct background;
+	/// The `bgcolor` attribute sets the background color of an element.
+	pub struct bgcolor;
+	/// The `blocking` attribute indicates that the script will block the page loading until it is executed.
+	pub struct blocking;
+	/// The `border` attribute sets the width of an element's border.
+	pub struct border;
+	/// The `buffered` attribute contains the time ranges that the media has been buffered.
+	pub struct buffered;
+	/// The `capture` attribute indicates that the user must capture media using a camera or microphone instead of selecting a file from the file picker.
+	pub struct capture;
+	/// The `challenge` attribute specifies the challenge string that is paired with the keygen element.
+	pub struct challenge;
+	/// The `charset` attribute specifies the character encoding of the HTML document.
+	pub struct charset;
+	/// The `checked` attribute indicates whether an input element is checked or not.
+	pub struct checked;
+	/// The `cite` attribute contains a URL that points to the source of the quotation or change.
+	pub struct cite;
+	/// The [`class`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/class) attribute is a space-separated list of the classes of the element
+	pub struct class;
+	/// The `closedby` attribute specifies the types of user actions that can be used to close the associated `<dialog>` element.
+	pub struct closedby;
+	/// The `code` attribute specifies the URL of the applet's class file to be loaded and executed.
+	pub struct code;
+	/// The `color` attribute specifies the color of an element's text.
+	pub struct color;
+	/// The `cols` attribute specifies the visible width of a text area.
+	pub struct cols;
+	/// The `colspan` attribute defines the number of columns a cell should span.
+	pub struct colspan;
+	/// The `command` attribute defines the command to be invoked when user clicks the `<button>` element which has `commandfor` attribute specified.
+	pub struct command;
+	/// The `commandfor` attribute defines the id of the element which button is controlling. It is generic version of `popovertarget`.
+	pub struct commandfor;
+	/// The `content` attribute gives the value associated with the http-equiv or name attribute.
+	pub struct content;
+	/// The [`contenteditable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/contenteditable) attribute indicates whether the element's content is editable.
+	pub struct contenteditable;
+	/// The `contextmenu` attribute specifies the ID of a `<menu>` element to open as a context menu.
+	pub struct contextmenu;
+	/// The `controls` attribute indicates whether the browser should display playback controls for the media.
+	pub struct controls;
+	/// The `controlslist` attribute allows the control of which controls to show on the media element whenever the browser shows its native controls.
+	pub struct controlslist;
+	/// The `coords` attribute specifies the coordinates of an area in an image map.
+	pub struct coords;
+	/// The `crossorigin` attribute indicates whether the resource should be fetched with a CORS request.
+	pub struct crossorigin;
+	/// The `csp` attribute allows the embedding document to define the Content Security Policy that an embedded document must agree to enforce upon itself.
+	pub struct csp;
+	/// The `data` attribute specifies the URL of the resource that is being embedded.
+	pub struct data;
+	/// The `datetime` attribute specifies the date and time.
+	pub struct datetime;
+	/// The `decoding` attribute indicates the preferred method for decoding images.
+	pub struct decoding;
+	/// The `default` attribute indicates that the track should be enabled unless the user's preferences indicate that another track is more appropriate.
+	pub struct default;
+	/// The `defer` attribute indicates that the script should be executed after the document has been parsed.
+	pub struct defer;
+	/// The [`dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/dir) attribute specifies the text direction for the content in an element.
+	pub struct dir;
+	/// The `dirname` attribute identifies the text directionality of an input element.
+	pub struct dirname;
+	/// The `disabled` attribute indicates whether the element is disabled.
+	pub struct disabled;
+	/// The `disablepictureinpicture` attribute indicates that the element is not allowed to be displayed in Picture-in-Picture mode.
+	pub struct disablepictureinpicture;
+	/// The `disableremoteplayback` attribute indicates that the element is not allowed to be displayed using remote playback.
+	pub struct disableremoteplayback;
+	/// The `download` attribute indicates that the linked resource is intended to be downloaded rather than displayed in the browser.
+	pub struct download;
+	/// The [`draggable`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/draggable) attribute indicates whether the element is draggable.
+	pub struct draggable;
+	/// The `elementtiming` attributes marks the element for observation by the `PerformanceElementTiming` API.
+	pub struct elementtiming;
+	/// The `enctype` attribute specifies the MIME type of the form submission.
+	pub struct enctype;
+	/// The [`enterkeyhint`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/enterkeyhint) attribute allows authors to specify what kind of action label or icon will be presented to users in a virtual keyboard's enter key.
+	pub struct enterkeyhint;
+	/// The [`exportparts`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/exportparts) attribute enables the sharing of parts of an element's shadow DOM with a containing document.
+	pub struct exportparts;
+	/// The `fetchpriority` attribute allows developers to specify the priority of a resource fetch request.
+	pub struct fetchpriority;
+	/// The `form` attribute associates the element with a form element.
+	pub struct form;
+	/// The `formaction` attribute specifies the URL that processes the form submission.
+	pub struct formaction;
+	/// The `formenctype` attribute specifies how the form data should be encoded when submitted.
+	pub struct formenctype;
+	/// The `formmethod` attribute specifies the HTTP method to use when submitting the form.
+	pub struct formmethod;
+	/// The `formnovalidate` attribute indicates that the form should not be validated when submitted.
+	pub struct formnovalidate;
+	/// The `formtarget` attribute specifies where to display the response after submitting the form.
+	pub struct formtarget;
+	/// The `headers` attribute specifies the headers associated with the element.
+	pub struct headers;
+	/// The `height` attribute specifies the height of an element.
+	pub struct height;
+	/// The [`hidden`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/hidden) attribute indicates that the element is not yet, or is no longer, relevant.
+	pub struct hidden;
+	/// The `high` attribute specifies the range that is considered to be a high value.
+	pub struct high;
+	/// The `href` attribute specifies the URL of a linked resource.
+	pub struct href;
+	/// The `hreflang` attribute specifies the language of the linked resource.
+	pub struct hreflang;
+	/// The `http-equiv` attribute provides an HTTP header for the information/value of the content attribute.
+	pub struct http_equiv;
+	/// The `icon` attribute specifies the URL of an image to be used as a graphical icon for the element.
+	pub struct icon;
+	/// The [`id`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/id) attribute specifies a unique id for an element.
+	pub struct id;
+	/// The `imagesizes` attribute specifies image sizes for different page layouts.
+	pub struct imagesizes;
+	/// The `imagesrcset` attribute specifies the URLs of multiple images to be used in different situations.
+	pub struct imagesrcset;
+	/// The `importance` attribute specifies the relative importance of the element.
+	pub struct importance;
+	/// The [`inert`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/inert) attribute indicates that the element is non-interactive and won't be accessible to user interactions or assistive technologies.
+	pub struct inert;
+	/// The [`inputmode`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/inputmode) attribute specifies the type of data that the user will enter.
+	pub struct inputmode;
+	/// The `integrity` attribute contains a hash value that the browser can use to verify that the resource hasn't been altered.
+	pub struct integrity;
+	/// The `intrinsicsize` attribute specifies the intrinsic size of an image or video.
+	pub struct intrinsicsize;
+	/// The [`is`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/is) attribute allows you to specify the name of a custom element.
+	pub struct is;
+	/// The `ismap` attribute indicates that the image is part of a server-side image map.
+	pub struct ismap;
+	/// The [`itemid`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/itemid) attribute assigns a unique identifier to an item.
+	pub struct itemid;
+	/// The [`itemprop`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/itemprop) attribute adds a property to an item.
+	pub struct itemprop;
+	/// The [`itemref`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/itemref) attribute provides a list of element IDs that have additional properties for the item.
+	pub struct itemref;
+	/// The [`itemscope`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/itemscope) attribute creates a new item and adds it to the page's items.
+	pub struct itemscope;
+	/// The [`itemtype`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/itemtype) attribute specifies the type of an item.
+	pub struct itemtype;
+	/// The `keytype` attribute specifies the type of key used by the `<keygen>` element.
+	pub struct keytype;
+	/// The `kind` attribute specifies the kind of text track.
+	pub struct kind;
+	/// The `label` attribute provides a user-readable title for an element.
+	pub struct label;
+	/// The [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/lang) attribute specifies the language of the element's content.
+	pub struct lang;
+	/// The `language` attribute specifies the scripting language used for the script.
+	pub struct language;
+	/// The `list` attribute identifies a `<datalist>` element that contains pre-defined options for an `<input>` element.
+	pub struct list;
+	/// The `loading` attribute indicates how the browser should load the image.
+	pub struct loading;
+	/// The `low` attribute specifies the range that is considered to be a low value.
+	pub struct low;
+	/// The `manifest` attribute specifies the URL of a document's cache manifest.
+	pub struct manifest;
+	/// The `max` attribute specifies the maximum value for an input element.
+	pub struct max;
+	/// The `maxlength` attribute specifies the maximum number of characters that an input element can accept.
+	pub struct maxlength;
+	/// The `media` attribute specifies what media/device the linked resource is optimized for.
+	pub struct media;
+	/// The `method` attribute specifies the HTTP method to use when submitting the form.
+	pub struct method;
+	/// The `min` attribute specifies the minimum value for an input element.
+	pub struct min;
+	/// The `minlength` attribute specifies the minimum number of characters that an input element can accept.
+	pub struct minlength;
+	/// The `multiple` attribute indicates whether the user can enter more than one value.
+	pub struct multiple;
+	/// The `muted` attribute indicates whether the audio will be initially silenced on page load.
+	pub struct muted;
+	/// The `name` attribute specifies the name of the element.
+	pub struct name;
+	/// The `nomodule` attribute indicates that the script should not be executed in browsers that support ES modules.
+	pub struct nomodule;
+	/// The [`nonce`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/nonce) attribute provides a cryptographic nonce to ensure that a script or style is approved for execution.
+	pub struct nonce;
+	/// The `novalidate` attribute indicates that the form should not be validated when submitted.
+	pub struct novalidate;
+	/// The `open` attribute indicates whether the details element is open or closed.
+	pub struct open;
+	/// The `optimum` attribute specifies the range that is considered to be an optimum value.
+	pub struct optimum;
+	/// The [`part`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/part) attribute identifies the element as a shadow DOM part.
+	pub struct part;
+	/// The `pattern` attribute specifies a regular expression that the input element's value is checked against.
+	pub struct pattern;
+	/// The `ping` attribute contains a space-separated list of URLs to be notified if the user follows the hyperlink.
+	pub struct ping;
+	/// The `placeholder` attribute provides a short hint that describes the expected value of the input element.
+	pub struct placeholder;
+	/// The `playsinline` attribute indicates that the video should play inline in the element's playback area.
+	pub struct playsinline;
+	/// The [`popover`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover) attribute indicates that an element is a popover and specifies the event that causes the popover to be shown.
+	pub struct popover;
+	/// The `popovertarget` attribute specifies the ID of an element to toggle a popover.
+	pub struct popovertarget;
+	/// The `popovertargetaction` attribute specifies the action that shows the popover.
+	pub struct popovertargetaction;
+	/// The `poster` attribute specifies an image to be shown while the video is downloading or until the user hits the play button.
+	pub struct poster;
+	/// The `preload` attribute specifies if and how the author thinks that the media file should be loaded when the page loads.
+	pub struct preload;
+	/// The `as` attribute specifies the type of destination for the content of the link.
+	pub struct r#as;
+	/// The `async` attribute indicates that the script should be executed asynchronously.
+	pub struct r#async;
+	/// The `for` attribute specifies which form element a label is bound to.
+	pub struct r#for;
+	/// The `loop` attribute indicates whether the media should start over again when it reaches the end.
+	pub struct r#loop;
+	/// The `type` attribute specifies the type of the element.
+	pub struct r#type;
+	/// The `radiogroup` attribute specifies the name of the group to which the element belongs.
+	pub struct radiogroup;
+	/// The `readonly` attribute indicates that the user cannot modify the value of the input element.
+	pub struct readonly;
+	/// The `referrerpolicy` attribute specifies which referrer information to include with requests.
+	pub struct referrerpolicy;
+	/// The `rel` attribute specifies the relationship between the current document and the linked document.
+	pub struct rel;
+	/// The `required` attribute indicates that the user must fill in the input element before submitting the form.
+	pub struct required;
+	/// The `reversed` attribute indicates that the list should be displayed in a descending order.
+	pub struct reversed;
+	/// The [`role`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/role) attribute defines the role of an element in the context of a web application.
+	pub struct role;
+	/// The `rows` attribute specifies the number of visible text lines for a text area.
+	pub struct rows;
+	/// The `rowspan` attribute defines the number of rows a cell should span.
+	pub struct rowspan;
+	/// The `sandbox` attribute applies extra restrictions to the content in the `<iframe>`.
+	pub struct sandbox;
+	/// The `scope` attribute specifies whether a header cell is a header for a column, row, or group of columns or rows.
+	pub struct scope;
+	/// The `scoped` attribute indicates that the styles in a `<style>` element are scoped to the parent element.
+	pub struct scoped;
+	/// The `selected` attribute indicates that the option is selected.
+	pub struct selected;
+	/// The `shape` attribute specifies the shape of the area.
+	pub struct shape;
+	/// The `size` attribute specifies the width of the input element.
+	pub struct size;
+	/// The `sizes` attribute specifies the sizes of icons for visual media.
+	pub struct sizes;
+	/// The [`slot`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/slot) attribute assigns a slot to an element.
+	pub struct slot;
+	/// The `span` attribute defines the number of columns in a `<colgroup>` or the number of rows in a `<rowgroup>`.
+	pub struct span;
+	/// The [`spellcheck`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/spellcheck) attribute indicates whether spell checking is allowed for the element.
+	pub struct spellcheck;
+	/// The `src` attribute specifies the URL of the media resource.
+	pub struct src;
+	/// The `srcdoc` attribute specifies the HTML content of the page to show in the `<iframe>`.
+	pub struct srcdoc;
+	/// The `srclang` attribute specifies the language of the text track.
+	pub struct srclang;
+	/// The `srcset` attribute specifies the URLs of multiple images to be used in different situations.
+	pub struct srcset;
+	/// The `start` attribute specifies the start value of the list.
+	pub struct start;
+	/// The `step` attribute specifies the legal number intervals for an input element.
+	pub struct step;
+	/// The [`style`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/style) attribute specifies inline CSS styling declarations for an element.
+	pub struct style;
+	/// The `summary` attribute provides a summary of the content of the table.
+	pub struct summary;
+	/// The [`tabindex`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/tabindex) attribute specifies the tab order of an element.
+	pub struct tabindex;
+	/// The `target` attribute specifies where to open the linked document.
+	pub struct target;
+	/// The [`title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/title) attribute provides additional information about an element.
+	pub struct title;
+	/// The [`translate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/translate) attribute specifies whether the content of an element should be translated or not.
+	pub struct translate;
+	/// The `usemap` attribute specifies the image map to be used by an `<img>` element.
+	pub struct usemap;
+	/// The `value` attribute specifies the value of the element.
+	pub struct value;
+	/// The [`virtualkeyboardpolicy`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/virtualkeyboardpolicy) attribute controls the policy for virtual keyboards.
+	pub struct virtualkeyboardpolicy;
+	/// The `width` attribute specifies the width of an element.
+	pub struct width;
+	/// The `wrap` attribute specifies how the text in a text area is to be wrapped when submitted in a form.
+	pub struct wrap;

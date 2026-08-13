@@ -1,0 +1,63 @@
+import math.nb { nb, a, b, c, d, e, f, zero };
+import math.logic { 
+	and, or, not, xor, nand, nor, xnor, imply, bcr, count_bits, count_zeros, clo, cls, clz, cto, ctz, rev, rev8, rev16, rev32 
+};
+
+fn logic_tests () => [
+	[145, not(zero), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])],
+	[146, not(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])), zero],
+	[147, not(nb([a, 5])), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, 5, a])],
+	[148, and(zero, nb([f, f, f, f])), zero],
+	[149, and(nb([f, f]), nb([0, f])), nb([f])],
+	[150, and(nb([a, a]), nb([5, 5])), zero],
+	[151, and(nb([f, 0, f, 0]), nb([f, f, 0, 0])), nb([f, 0, 0, 0])],
+	[152, or(zero, nb([1, 2, 3, 4])), nb([1, 2, 3, 4])],
+	[153, or(nb([a, a]), nb([5, 5])), nb([f, f])],
+	[154, xor(zero, nb([1, 2, 3, 4])), nb([1, 2, 3, 4])],
+	[155, xor(nb([f, f]), nb([f, f])), zero],
+	[156, xor(nb([a, a]), nb([5, 5])), nb([f, f])],
+	[157, nand(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f]), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])), zero],
+	[158, nor(zero, zero), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])],
+	[159, xnor(nb([a, a]), nb([5, 5])), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, 0, 0])],
+	[160, bcr(nb([f, f]), nb([0, f])), nb([f, 0])],
+	[161, imply(zero, zero), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])],
+	[162, count_bits(zero), [0, 0]],
+	[163, count_zeros(zero), [0, 4]], 
+	[164, count_bits(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])), [0, 4]],
+	[165, count_zeros(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])), [0, 0]],
+	[166, count_bits(nb([1])), [1, 0]],
+	[167, count_zeros(nb([1])), [f, 3]], 
+	[168, count_bits(nb([5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5])), [0, 2]], 
+	[169, ctz(zero), [0, 4]], 
+	[170, ctz(nb([1])), [0, 0]], 
+	[171, ctz(nb([8])), [3, 0]], 
+	[172, ctz(nb([1, 0, 0])), [8, 0]], 
+	[173, cto(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])), [0, 4]], 
+	[174, cto(nb([7])), [3, 0]], 
+	[175, clz(zero), [0, 4]], 
+	[176, clz(nb([8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])), [0, 0]],
+	[177, clz(nb([1])), [f, 3]], 
+	[178, clz(nb([0, f, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])), [4, 0]],
+	[179, clo(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])), [0, 4]], 
+	[180, clo(nb([e, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])), [3, 0]],
+	[181, cls(nb([0, f, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])), [3, 0]],
+	[182, cls(nb([e, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])), [2, 0]],
+	[183, rev(zero), zero],
+	[184, rev(nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])), nb([f, f, f, f, f, f, f, f, f, f, f, f, f, f, f, f])],
+	[185, rev(nb([1])), nb([8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])],
+	[186, rev(nb([a, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])), nb([5])],
+	[187, rev(nb([1, 2, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])), nb([2, c, 4, 8])],
+	[
+		188, 
+		rev8(nb([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f])), 
+		nb([e, f, c, d, a, b, 8, 9, 6, 7, 4, 5, 2, 3, 0, 1])
+	], [
+		189, 
+		rev16(nb([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f])), 
+		nb([c, d, e, f, 8, 9, a, b, 4, 5, 6, 7, 0, 1, 2, 3])
+	], [
+		190, 
+		rev32(nb([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f])), 
+		nb([8, 9, a, b, c, d, e, f, 0, 1, 2, 3, 4, 5, 6, 7])
+	],
+];

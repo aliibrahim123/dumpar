@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<body>
+	<div>
+		<div id="main"></div>
+	</div>
+	<script type="module">
+		import init from "./pkg/b.js";
+		(async () => {
+			await init();
+			console.log("finished web");
+		})();
+	</script>
+</body>
