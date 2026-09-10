@@ -46,6 +46,7 @@ html`
 		chunk2.effect(() => {
 			let value1 = input.value,
 				value2 = count.value;
+
 			if (log.peek()) console.log(value1, value2);
 		});
 		chunk.html`${chunk2}`;
@@ -68,4 +69,14 @@ Reflect.set(globalThis, 'ctx', ctx);
 	let iframe = document.createElement('iframe');
 	build.html`${iframe}`;
 	iframe.contentDocument?.body.append(exported.base_el);
+}
+
+function random_string(length: number) {
+	let result = '';
+	let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	let charactersLength = characters.length;
+	for (let i = 0; i < length; i++) {
+		result += characters.charAt(Math.floor(Math.random() * charactersLength));
+	}
+	return result;
 }

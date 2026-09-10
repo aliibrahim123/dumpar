@@ -4,4 +4,6 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-gramex = { path = "../lib" }
+gramex = { path = "../lib", features = ["str", "bytes", "bits", "macros"] }
+lean_string = "0.7.0"
+rand = "0.10.2"
