@@ -1,0 +1,32 @@
+[package]
+name = "gramex"
+description = "common language for advanced parsers"
+edition = "2024"
+version = "0.2.3"
+readme = "../readme.md"
+license = "MIT"
+repository = "https://github.com/aliibrahim123/gramex"
+documentation = "https://docs.rs/gramex/"
+
+[lib]
+doctest = false
+
+[package.metadata.docs.rs]
+all-features = true
+
+[lints]
+clippy.pedantic = "warn"
+
+[features]
+default = ["std"]
+std = []
+macros = ["dep:gramex-macro"]
+str = []
+bytes = []
+bits = []
+
+
+[dependencies]
+gramex-macro = { version = "0.2.1", path = "../macro", optional = true }
+lean_string = "0.7.0"
+rustc-hash = "2.1.3"

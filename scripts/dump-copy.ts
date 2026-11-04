@@ -9,7 +9,7 @@ const dirs = {
 	'tests/neocomp': 'neocomp/test',
 	'tests/neoview': 'neoview/tests',
 	scripts: 'scripts',
-	'tests/structom': 'structom/test',
+	'tests/structom': 'structom/tests',
 	'tests/ts-madness': 'ts-madness/test',
 	'uni-hw': 'uni-hw',
 };

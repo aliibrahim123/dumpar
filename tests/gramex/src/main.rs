@@ -7,7 +7,7 @@ use gramex::{
 	derive_slice_matchable,
 	general::{an, list},
 	matcher,
-	result::MatchError,
+	result::{Expected, MatchError},
 	str::{alpha, dec},
 };
 use rand::{
@@ -21,12 +21,14 @@ mod claude {
 	mod b;
 	mod c;
 	mod d;
+	mod e;
 }
 mod gemini {
 	mod a;
 	mod b;
 }
 mod b;
+mod showcase;
 #[derive(Debug)]
 struct Cur<'src> {
 	pub off: usize,
@@ -52,11 +54,11 @@ impl<'src> Cursor<'src> for Cur<'src> {
 	}
 }
 
-#[derive_enum_matcher(for S<'slice>)]
+#[derive_enum_matcher(for S<'slice>, field = .kind, expected = A::kind_to_expected)]
 #[derive(Debug, PartialEq, PartialOrd)]
 #[repr(u8)]
 enum A<'src> {
-	U(&'src str),
+	U(&'src str, u8),
 	D,
 	F = 100,
 	T { a: u16, b: u8 },
@@ -64,8 +66,20 @@ enum A<'src> {
 	I,
 	O(Box<A<'src>>),
 }
-struct S<'src>(&'src [A<'src>]);
-derive_slice_matchable!(S(&[A<'slice>]), WithRange);
+impl A<'_> {
+	fn kind_to_expected(kind: &str) -> Expected {
+		Expected::A(kind.into())
+	}
+}
+
+#[derive(Debug, PartialEq, PartialOrd)]
+struct T<'src> {
+	off: usize,
+	kind: A<'src>,
+}
+#[derive(Debug)]
+struct S<'src>(&'src [T<'src>]);
+derive_slice_matchable!(S(&[T<'slice>]), matchers: WithRange, expected: Debug);
 
 fn main() {
 	let a = "abc123def";
@@ -81,7 +95,7 @@ fn main() {
 	let a = Alphanumeric.sample_string(&mut rng(), 4);
 	let mut cur = Cur { off: 0, input: &a, errors: Vec::new() };
 	cur.skip();
-	let n = match_map!(&mut cur, {
+	let n = match_map!(cur, {
 		'a'..'z' (a = _[2]) => Ok((&a[0..1], &a[1..2])),
 		'A'..'D' => Err(2),
 		'D'..'Z' a:alpha b:dec => Ok((a, b)),
@@ -91,7 +105,7 @@ fn main() {
 
 	println!(
 		"{:?}",
-		word_le(2, matcher!(for LBits: 0x12u8 0x34))
+		word_le(2, matcher!(for LBits, 0x12u8 0x34))
 			.parse(&[0x12u8, 0x32], &mut 0)
 			.map_err(|e| e.to_string())
 	);

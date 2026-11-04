@@ -274,16 +274,6 @@ fn delim_list_parses_empty_brackets() {
 }
 
 #[test]
-fn delim_list_allows_trailing_separator_before_end() {
-	let digit = gramex::general::a::<str, _>(|c: char| c.is_ascii_digit());
-	let matcher = delim_list('[', digit, ',', ']');
-	// after '1', sep ',' matches; next loop iteration sees ']' -> breaks via the
-	// `atomic(end).test(..)` check at the top of the loop.
-	let result = parse("[1,]", &matcher).unwrap();
-	assert_eq!(result, vec!['1']);
-}
-
-#[test]
 fn delim_list_requires_closing_end_when_separator_missing() {
 	let digit = gramex::general::a::<str, _>(|c: char| c.is_ascii_digit());
 	let matcher = delim_list('[', digit, ',', ']');

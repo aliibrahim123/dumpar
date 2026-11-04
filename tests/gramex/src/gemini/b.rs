@@ -115,13 +115,13 @@ fn bits_from_bool_and_floats() {
 #[test]
 fn bits_from_arrays_and_slices() {
 	let arr = [0xAAu8, 0xBB];
-	let b_arr = Bits::from(arr);
+	let b_arr = Bits::from_le_bytes(arr);
 	assert_eq!(b_arr.len, 16);
 	// LE conversion: 0xAA is LSB, 0xBB is MSB
 	assert_eq!(b_arr.value, 0xBBAA);
 
-	let slice: &[u8] = &[0xAA, 0xBB, 0xCC];
-	let b_slice = Bits::try_from(slice).unwrap();
+	let slice = [0xAA, 0xBB, 0xCC];
+	let b_slice = Bits::from_le_bytes(slice);
 	assert_eq!(b_slice.len, 24);
 	assert_eq!(b_slice.value, 0xCCBBAA);
 }
@@ -211,7 +211,7 @@ fn matcher_bool_fails_when_expected_differs() {
 	let mut off = 0;
 	let err = false.check(&lb, &mut off).unwrap_err();
 	assert!(core::matches!(err.kind, MatchErrorKind::MisMatch(_)));
-	assert_eq!(format!("{}", <_ as Matcher<LBits>>::expected(&false)), "0b0");
+	assert_eq!(format!("{}", <_ as Matcher<LBits>>::expected(&false)), "`0`");
 }
 
 #[test]
@@ -247,7 +247,7 @@ fn matcher_bitrange() {
 	assert_eq!(off, 8);
 	assert_eq!(
 		format!("{}", <_ as Matcher<LBits>>::expected(&range)),
-		"between 0b01100100 and 0b11001000"
+		"between `01100100` and `11001000`"
 	);
 }
 
@@ -277,7 +277,7 @@ fn word_le_reads_bytes_and_applies_sub_matcher() {
 	let mut off = 0;
 
 	// word_le takes 2 bytes, casts to LBits(0xABCD, len=16) and checks against 0xABCDu16
-	let m = word_le(2, 0xABCDu16);
+	let m = word_le::<LBits, _>(2, 0xABCDu16);
 	let cap = m.capture(bytes, &mut off).unwrap();
 
 	assert_eq!(cap, LBits::new(16, 0xABCD));
@@ -293,7 +293,7 @@ fn word_be_reads_bytes_and_applies_sub_matcher() {
 	// But it casts to BBits! Wait, `Bits::try_from([0xAB, 0xCD])` yields 0xCDAB (LE-based).
 	// Let's verify `WordBE` behavior with exact sub-matching logic.
 	let expected_u16: u16 = 0xCDAB;
-	let m = word_be(2, expected_u16);
+	let m = word_le::<LBits, _>(2, expected_u16);
 	let cap = m.capture(bytes, &mut off).unwrap();
 
 	// The matcher successfully applies
@@ -304,7 +304,7 @@ fn word_be_reads_bytes_and_applies_sub_matcher() {
 #[test]
 fn word_le_fails_with_mismatch_on_short_input() {
 	let bytes: &[u8] = &[0xCD]; // only 1 byte
-	let m = word_le(2, 0xABCDu16); // requires 2 bytes
+	let m = word_le::<LBits, _>(2, 0xABCDu16); // requires 2 bytes
 
 	let mut off = 0;
 	let err = m.check(bytes, &mut off).unwrap_err();
@@ -318,7 +318,7 @@ fn word_le_fails_with_mismatch_on_short_input() {
 #[test]
 fn word_le_fails_with_other_when_sub_matcher_fails() {
 	let bytes: &[u8] = &[0x00, 0x00];
-	let m = word_le(2, 0xABCDu16);
+	let m = word_le::<LBits, _>(2, 0xABCDu16);
 
 	let mut off = 0;
 	let err = m.check(bytes, &mut off).unwrap_err();
@@ -339,10 +339,10 @@ fn word_le_maintains_offset_correctly_on_sequential_matches() {
 	let bytes: &[u8] = &[0x11, 0x22, 0x33, 0x44];
 
 	let mut off = 0;
-	assert!(word_le(2, 0x2211u16).check(bytes, &mut off).is_ok());
+	assert!(word_le::<LBits, _>(2, 0x2211u16).check(bytes, &mut off).is_ok());
 	assert_eq!(off, 2);
 
-	assert!(word_le(2, 0x4433u16).check(bytes, &mut off).is_ok());
+	assert!(word_le::<LBits, _>(2, 0x4433u16).check(bytes, &mut off).is_ok());
 	assert_eq!(off, 4);
 }
 
@@ -382,15 +382,6 @@ fn bitrange_constructor_panics_on_end_out_of_bounds() {
 // ---------------------------------------------------------------------
 
 #[test]
-fn bits_try_from_slice_fails_if_longer_than_8_bytes() {
-	let slice: &[u8] = &[1, 2, 3, 4, 5, 6, 7, 8, 9];
-	assert!(Bits::try_from(slice).is_err());
-
-	let valid_slice: &[u8] = &[1, 2, 3, 4, 5, 6, 7, 8];
-	assert!(Bits::try_from(valid_slice).is_ok());
-}
-
-#[test]
 fn bits_try_from_primitive_fails_if_truncation_would_occur() {
 	let large_bits = b(32, 0xFFFF_FFFF);
 	// Fits in u32, but fails in u16
@@ -413,7 +404,7 @@ fn steal_bits_from_primitives() {
 	assert_eq!(bb_float.0.len, 32);
 	assert_eq!(bb_float.0.value, 0x3f800000);
 
-	let bb_array = BBits::from([0x12u8, 0x34u8]);
+	let bb_array = BBits::from_le_bytes([0x12u8, 0x34u8]);
 	assert_eq!(bb_array.0.len, 16);
 	// LE conversion inside Bits::from([u8; N]) -> 0x3412
 	assert_eq!(bb_array.0.value, 0x3412);
@@ -423,7 +414,7 @@ fn steal_bits_from_primitives() {
 fn try_from_stolen_bits() {
 	let lb = LBits::new(16, 0xABCD);
 
-	let array: [u8; 2] = lb.try_into().unwrap();
+	let array: [u8; 2] = lb.to_le_bytes().unwrap();
 	// Reverted via to_le_bytes internally
 	assert_eq!(array, [0xCD, 0xAB]);
 
@@ -493,7 +484,7 @@ fn array_matcher_on_bits() {
 	let lb = LBits::new(24, 0xCCBBAA);
 
 	// Because of LE extraction from [u8; 3], 0xAA is bit 0-7, 0xBB is 8-15, 0xCC is 16-23.
-	let expected_array = [0xAAu8, 0xBB, 0xCC];
+	let expected_array = Bits::from_le_bytes([0xAAu8, 0xBB, 0xCC]);
 
 	let mut off = 0;
 	let cap = expected_array.capture(&lb, &mut off).unwrap();
@@ -532,7 +523,7 @@ fn word_le_cascading_error_points_to_inner_failure() {
 	let bytes: &[u8] = &[0x00, 0x00];
 
 	// word_le sets up an LBits view. We demand it matches an exact value.
-	let m = word_le(2, 0xFFFFu16);
+	let m = word_le::<LBits, _>(2, 0xFFFFu16);
 
 	let mut off = 0;
 	let err = m.check(bytes, &mut off).unwrap_err();
@@ -541,7 +532,7 @@ fn word_le_cascading_error_points_to_inner_failure() {
 	assert_eq!(err.off, 0); // Fails at the byte-slice start position
 	assert_eq!(
 		format!("{}", err),
-		"while matching word at 0: mismatch at 0, expected 0b1111111111111111"
+		"while matching word at 0: mismatch at 0, expected `1111111111111111`"
 	);
 }
 
@@ -552,8 +543,7 @@ fn word_be_handles_bitrange() {
 
 	// Accept any value between 0x3000 and 0x4000 (which covers 0x3412)
 	let range = br(8, 0x30..=0x40);
-	let m = word_be(2, matcher!(for BBits: {br(8, 0x30..=0x40)} _[8]));
-
+	let m = word_le(2, matcher!(for BBits, {br(8, 0x30..=0x40)} _[8]));
 	let mut off = 0;
 	assert!(m.check(bytes, &mut off).is_ok());
 	assert_eq!(off, 2);
@@ -562,7 +552,7 @@ fn word_be_handles_bitrange() {
 #[test]
 fn word_le_panics_on_zero_bytes() {
 	let result = std::panic::catch_unwind(|| {
-		word_le(0, 0u16); // bytes parameter cannot be 0
+		word_le::<LBits, _>(0, 0u16); // bytes parameter cannot be 0
 	});
 	assert!(result.is_err());
 }
@@ -570,7 +560,7 @@ fn word_le_panics_on_zero_bytes() {
 #[test]
 fn word_be_panics_on_excess_bytes() {
 	let result = std::panic::catch_unwind(|| {
-		word_be(9, 0u32); // max bytes is 8 (64 bits)
+		word_le::<BBits, _>(9, 0u32); // max bytes is 8 (64 bits)
 	});
 	assert!(result.is_err());
 }

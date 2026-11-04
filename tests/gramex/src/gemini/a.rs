@@ -5,7 +5,7 @@ mod tests {
 	#![allow(nonstandard_style, unused_variables, dead_code, unused_imports)]
 
 	use gramex::result::MatchResult;
-	use gramex::{MatchAble, Matcher, Mode, general::MatchFn, gramex, result::*};
+	use gramex::{MatchAble, Matcher, Mode, general::MatchFn, grammar, result::*};
 	use std::borrow::Cow;
 	use std::fmt::Debug;
 
@@ -76,11 +76,11 @@ mod tests {
 			}
 		}
 	}
-	gramex!(for str; let g = 'a' g_wrap<'a'> ;);
-	gramex! {
+	grammar!(for str; let g = 'a' g_wrap<'a'> ;);
+	grammar! {
 		for str;
-
-		// ---------------------------------------------------------
+		let u = 'a' ~'a' 'a'[10] 'a'? "aaa" a:'a'
+		;// ---------------------------------------------------------
 		// 1. Basic Literals and Matchers
 		// ---------------------------------------------------------
 		let t_lit = "hello";
@@ -199,13 +199,13 @@ mod tests {
 		let j_object: Vec<(String, f64)> =
 			'{' ws (pairs* = k: j_str ws ':' ws v: j_num ws (',' ws)? => (k, v)) '}' => pairs;
 		let test3 = "a";
-		let test4<a>: A::<'src> = "abc" | a -> (UI: struct = digit+) | def:"def";
+		let test4<ab>: A::<'src> = "abc" | ab -> (UI: struct = digit+) | def:"def";
 	}
 
 	mod tokens {
 		use super::{MatchExact, Token, Tokens};
 		use gramex::*;
-		gramex! {
+		grammar! {
 			for Tokens;
 
 			let tok_any = _;
@@ -651,7 +651,7 @@ mod tests {
 		}
 	}
 
-	gramex! {
+	grammar! {
 		for str;
 		let rule = { MatchFn::new(custom_fn) } " wand";
 	}

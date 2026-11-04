@@ -1,0 +1,630 @@
+diff --git a/lib/src/bits.rs b/lib/src/bits.rs
+--- a/lib/src/bits.rs
++++ b/lib/src/bits.rs
+@@ -5,3 +5,3 @@
+ //! # [`Bits`]
+-//! [`Bits`] is the core structure in bit matching, it represend a bitfield of maximum 64 bits.
++//! [`Bits`] is the core structure in bit matching, it represents a bitfield of maximum 64 bits.
+ //!
+@@ -34,3 +34,3 @@
+ //! # core [`Matcher`]s
+-//! for each endian wrapper, [`Matcher`] is implemented for [`Bits`], [`bool`], `{i,u}{8,16,32}`. in addition for the universal `&Bits`, [`Box<Bits>`], [`Rc<Bits>`](alloc_crate::rc::Rc) and [`Arc<Bits>`](alloc_crate::sync::Arc).
++//! for each endian wrapper, [`Matcher`] is implemented for [`Bits`], [`bool`], `{i,u}{8,16,32}`. in addition to the universal `&Bits`, [`Box<Bits>`], [`Rc<Bits>`](alloc_crate::rc::Rc) and [`Arc<Bits>`](alloc_crate::sync::Arc).
+ //!
+@@ -38,3 +38,3 @@
+ //!
+-//! all this [`Matcher`]s matches with the endian wrapper slice they matched.
++//! all these [`Matcher`]s match with the endian wrapper slice they matched.
+ //!
+@@ -103,3 +103,3 @@
+ ///
+-/// it panic if `len` is outside `1..=64`, or `value` is greater than `len` capacity.
++/// it panics if `len` is outside `1..=64`, or `value` is greater than `len` capacity.
+ ///
+@@ -258,4 +258,4 @@
+ 	/// convert `Bits` into little endian byte array.
+ 	///
+-	/// `N` must be `1..=8` and it return `None` if the `len` is larger than the array capacity
++	/// `N` must be `1..=8` and it returns `None` if the `len` is larger than the array capacity.
+ 	///
+@@ -270,4 +270,4 @@
+ 	/// convert `Bits` into big endian byte array.
+ 	///
+-	/// `N` must be `1..=8` and it return `None` if the `len` is larger than the array capacity
++	/// `N` must be `1..=8` and it returns `None` if the `len` is larger than the array capacity.
+ 	///
+@@ -338,7 +338,7 @@
+ ///
+-/// `LBits` is a wrapper around [`Bits`] which implement [`MatchAble`] in little endian direction.
++/// `LBits` is a wrapper around [`Bits`] which implements [`MatchAble`] in little endian direction.
+ ///
+ /// see the [module documentation](crate::bits) for more info.
+ ///
+-/// it is convertable and comparable between [`Bits`] and [`BBits`].
++/// it is convertible and comparable between [`Bits`] and [`BBits`].
+ ///
+@@ -353,7 +353,7 @@
+ ///
+-/// `BBits` is a wrapper around [`Bits`] which implement [`MatchAble`] in big endian direction.
++/// `BBits` is a wrapper around [`Bits`] which implements [`MatchAble`] in big endian direction.
+ ///
+ /// see the [module documentation](crate::bits) for more info.
+ ///
+-/// it is convertable and comparable between [`Bits`] and [`LBits`].
++/// it is convertible and comparable between [`Bits`] and [`LBits`].
+ ///
+@@ -380,3 +380,3 @@
+ 	///
+-	/// panic if `len` is outside `1..=64`.
++	/// panics if `len` is outside `1..=64`.
+ 	#[inline]
+@@ -388,3 +388,3 @@
+ 	///
+-	/// panic if `len` is outside `1..=64`.
++	/// panics if `len` is outside `1..=64`.
+ 	pub fn new(len: u8, value: u64) -> BBits {
+@@ -520,3 +520,3 @@
+ ///
+-/// it is a [`RangeInclusive`] equivelant for [`Bits`] facilatating bit range matching.
++/// it is a [`RangeInclusive`] equivalent for [`Bits`] facilitating bit range matching.
+ ///
+@@ -542,3 +542,3 @@
+ ///
+-/// it panic if `len` is outside `1..=64`, or `start` or `end` are larger than `len` capacity.
++/// it panics if `len` is outside `1..=64`, or `start` or `end` are larger than `len` capacity.
+ ///
+@@ -650,3 +650,3 @@
+ ///
+-/// `a_b` produce a [`Matcher`] that matches a `len` sized [`Bits`] field, then test its value by `pred`, if `pred` return `true` it matches with the field, else it fail.
++/// `a_b` produces a [`Matcher`] that matches a `len` sized [`Bits`] field, then tests its value by `pred`, if `pred` returns `true` it matches with the field, else it fails.
+ ///
+diff --git a/lib/src/bytes.rs b/lib/src/bytes.rs
+--- a/lib/src/bytes.rs
++++ b/lib/src/bytes.rs
+@@ -43,3 +43,3 @@
+ //! # extra [`Matcher`](crate::Matcher)s
+-//! the `bytes` module export multiple [`Matcher`](crate::Matcher)s that matches and capture bytes of common kinds and patterns: [`u32_le`], [`be`], [`a_le`]...
++//! the `bytes` module exports multiple [`Matcher`](crate::Matcher)s that match and capture bytes of common kinds and patterns: [`u32_le`], [`be`], [`a_le`]...
+ //!
+@@ -105,6 +105,6 @@
+ define_ref_matcher!(#for(const N: usize) [u8; N], for [u8]);
+ 
+-/// test if currest offset is `align` bytes aligned.
++/// test if current offset is `align` bytes aligned.
+ ///
+-/// `aligned` produce a [`Matcher`](crate::Matcher) that matches with `()` if the current offset is aligned to `align` bytes boundry, otherwise it fails.
++/// `aligned` produces a [`Matcher`](crate::Matcher) that matches with `()` if the current offset is aligned to `align` bytes boundary, otherwise it fails.
+ ///
+@@ -120,3 +120,3 @@
+ 
+-/// types convertable to little endian byte arrays.
++/// types convertible to little endian byte arrays.
+ ///
+@@ -136,3 +136,3 @@
+ 	///
+-	/// `bytes` is graduated to be [`BYTES`](Self::BYTES) sized.
++	/// `bytes` is guaranteed to be [`BYTES`](Self::BYTES) sized.
+ 	fn from_bytes(bytes: &[u8]) -> Self;
+@@ -145,3 +145,3 @@
+ 
+-/// types convertable to big endian byte array.
++/// types convertible to big endian byte array.
+ ///
+@@ -175,3 +175,3 @@
+ ///
+-/// `le` produce a [`Matcher`](crate::Matcher) that convert `value` into little endian byte array and matches with it, capturing the matched `[u8]` slice.
++/// `le` produces a [`Matcher`](crate::Matcher) that converts `value` into little endian byte array and matches with it, capturing the matched `[u8]` slice.
+ ///
+@@ -200,3 +200,3 @@
+ ///
+-/// `be` produce a [`Matcher`](crate::Matcher) that convert `value` into big endian byte array and matches with it, capturing the matched `[u8]` slice.
++/// `be` produces a [`Matcher`](crate::Matcher) that converts `value` into big endian byte array and matches with it, capturing the matched `[u8]` slice.
+ ///
+@@ -225,6 +225,6 @@
+ 
+-/// matches a little endian encoded value by a pridicate.
++/// matches a little endian encoded value by a predicate.
+ ///
+-/// `a_le` produce a [`Matcher`](crate::Matcher) that decode a little endian byte slice as `T` value and test it by `pred`. if `pred` return `true` it matches with the value, else it fail.
++/// `a_le` produces a [`Matcher`](crate::Matcher) that decodes a little endian byte slice as `T` value and tests it by `pred`. if `pred` returns `true` it matches with the value, else it fails.
+ ///
+@@ -252,6 +252,6 @@
+ 
+-/// matches a big endian encoded value by a pridicate.
++/// matches a big endian encoded value by a predicate.
+ ///
+-/// `a_be` produce a [`Matcher`](crate::Matcher) that decode a big endian byte slice as `T` value and test it by `pred`. if `pred` return `true` it matches with the value, else it fail.
++/// `a_be` produces a [`Matcher`](crate::Matcher) that decodes a big endian byte slice as `T` value and tests it by `pred`. if `pred` returns `true` it matches with the value, else it fails.
+ ///
+diff --git a/lib/src/core.rs b/lib/src/core.rs
+--- a/lib/src/core.rs
++++ b/lib/src/core.rs
+@@ -12,4 +12,4 @@
+ /// # requirements
+-/// to be `MatchAble`, the impleminting type must be:
+-/// - veiwable as token list
++/// to be `MatchAble`, the implementing type must be:
++/// - viewable as token list
+ /// - indexable by `usize`
+@@ -18,7 +18,7 @@
+ ///
+-/// this requirements are essintial for ensuring flixible matching and zero copy parsing are universal property of matching.
++/// these requirements are essential for ensuring that flexible matching and zero copy parsing are universal properties of matching.
+ ///
+-/// `MatchAble`s can have variable length tokens, not neccessary be unitary sized.
++/// `MatchAble`s can have variable length tokens, not necessarily unitary sized.
+ ///
+ /// # implementation example
+@@ -68,3 +68,3 @@
+ 	///
+-	/// `Token` can be [`Copy`], referece or anything.
++	/// `Token` can be [`Copy`], reference or anything.
+ 	///
+@@ -78,7 +78,7 @@
+ 	///
+-	/// `Slice` can be of anytype, but usually primitive [slices](primitive@slice).
++	/// `Slice` can be of any type, but usually primitive [slices](primitive@slice).
+ 	///
+ 	/// it must be linked to the lifetime of the `Matchable` through `'src` lifetime.
+ 	///
+-	/// implimiting `MatchAble` for it provide the `MatchAble` subslice matching ability, and [`and expression`](crate::gram_ref#and-expression) support.
++	/// implementing `MatchAble` for it provides the `MatchAble` subslice matching ability, and [`and expression`](crate::gram_ref#and-expression) support.
+ 	type Slice<'src>
+@@ -140,3 +140,3 @@
+ ///
+-/// the `Mode` trait utilize GATs (generic associated types) and type state pattern to generic the matching logic over matching features.
++/// the `Mode` trait utilizes GATs (generic associated types) and type state pattern to generalize the matching logic over matching features.
+ ///
+@@ -395,3 +395,3 @@
+ 	///
+-	/// it monomorphize to the lightweightest matching logic, great for test based peeks and "did match" tests.
++	/// it monomorphizes to the lightest matching logic, great for test based peeks and "did match" tests.
+ 	///
+@@ -470,7 +470,7 @@
+ ///
+-/// the `Matcher` trait enable a type to behaive like a pattern for a specific [`MatchAble`].
++/// the `Matcher` trait enables a type to behave like a pattern for a specific [`MatchAble`].
+ ///
+-/// `Matcher`s doesnt just return bool as the match result, they can produce a [`Capture`](Self::Capture) and produce detailed [`MatchError`], all controlled through [`Mode`].
++/// `Matcher`s don't just return bool as the match result, they can produce a [`Capture`](Self::Capture) and produce detailed [`MatchError`], all controlled through [`Mode`].
+ ///
+@@ -476,3 +476,3 @@
+ ///
+-/// `Matcher`s are advice to be universal, pure, primitive, and efficient, as `Matcher` is a universal trait used inside the quickest tester and the advanced parsers.
++/// `Matcher`s are advised to be universal, pure, primitive, and efficient, as `Matcher` is a universal trait used inside the quickest tester and the advanced parsers.
+ ///
+@@ -482,3 +482,3 @@
+ ///
+-/// the offset is a token aligned, can be forward if needed, must remain token aligned on success, but it can be anything on failure.
++/// the offset is token aligned, can be advanced if needed, must remain token aligned on success, but it can be anything on failure.
+ ///
+@@ -510,3 +510,3 @@
+ /// # builtin universal `Matchers`
+-/// some common types implementes `Matcher` for any [`MatchAble`] type, supports `T: Matcher`.
++/// some common types implement `Matcher` for any [`MatchAble`] type, supports `T: Matcher`.
+ /// - `()`: acts as noop and always match with `()`.
+@@ -650,3 +650,3 @@
+ 	///
+-	/// return what the `Matcher` expect to match as beginning.
++	/// returns what the `Matcher` expects to match at the beginning.
+ 	///
+diff --git a/lib/src/core_macros.rs b/lib/src/core_macros.rs
+--- a/lib/src/core_macros.rs
++++ b/lib/src/core_macros.rs
+@@ -55,3 +55,3 @@
+ 
+-/// generate an ananymous [`Matcher`] from a [grammar expression](gram_ref).
++/// generate an anonymous [`Matcher`] from a [grammar expression](gram_ref).
+ ///
+@@ -95,3 +95,3 @@
+ ///
+-/// `check` takes a [`MatchAble`] value and optionally its type in `matched`, and the grammer expression `expr`, `expr` can access local variables.
++/// `check` takes a [`MatchAble`] value and optionally its type in `matched`, and the grammar expression `expr`, `expr` can access local variables.
+ ///
+@@ -115,3 +115,3 @@
+ ///
+-/// `matches` takes a [`MatchAble`] value and optionally its type in `matched`, and the grammer expression `expr`, `expr` can access local variables.
++/// `matches` takes a [`MatchAble`] value and optionally its type in `matched`, and the grammar expression `expr`, `expr` can access local variables.
+ ///
+@@ -135,3 +135,3 @@
+ ///
+-/// `parse` takes a [`MatchAble`] value and optionally its type in `matched`, and the grammer expression `expr`, `expr` can access local variables.
++/// `parse` takes a [`MatchAble`] value and optionally its type in `matched`, and the grammar expression `expr`, `expr` can access local variables.
+ ///
+@@ -157,3 +157,3 @@
+ ///
+-/// `try_match` takes a [`MatchAble`] value and optionally its type in `matched`, and the grammer expression `expr`, `expr` can access local variables.
++/// `try_match` takes a [`MatchAble`] value and optionally its type in `matched`, and the grammar expression `expr`, `expr` can access local variables.
+ ///
+diff --git a/lib/src/cursor.rs b/lib/src/cursor.rs
+--- a/lib/src/cursor.rs
++++ b/lib/src/cursor.rs
+@@ -3,3 +3,3 @@
+ //!
+-//! cursor module provide a solution for cases where the [grammar expressions](crate::gram_ref) are not enough: non basic error side, highly custom parsing operations, advance recovery strategies, context sensitive parsing, fully visible matching logic for deterministic and efficincy.
++//! cursor module provides a solution for cases where the [grammar expressions](crate::gram_ref) are not enough: non basic error side, highly custom parsing operations, advanced recovery strategies, context sensitive parsing, fully visible matching logic for deterministic and efficiency.
+ //!
+@@ -9,3 +9,3 @@
+ //!
+-//! the [`Cursor`] provide the typical unconstrained imperative experience of rust with all its features, while enriching it with the power of [`Matcher`] and its universality and expressivety through a set of utilities.
++//! the [`Cursor`] provides the typical unconstrained imperative experience of rust with all its features, while enriching it with the power of [`Matcher`] and its universality and expressivety through a set of utilities.
+ //!
+@@ -13,3 +13,3 @@
+ //!
+-//! at its core, a [`Cursor`] is a tuple of [`Matcher::do_match`] inputs, it hide all the manual offset handling and expose only a set of declarative matching actions reflecting the [`Mode`] [tiers](crate::modes) with cursor own twist: [`eat`](Cursor::eat), [`try_eat`](Cursor::try_eat), and [`test`](Cursor::test).
++//! at its core, a [`Cursor`] is a tuple of [`Matcher::do_match`] inputs, it hides all the manual offset handling and exposes only a set of declarative matching actions reflecting the [`Mode`] [tiers](crate::modes) with cursor own twist: [`eat`](Cursor::eat), [`try_eat`](Cursor::try_eat), and [`test`](Cursor::test).
+ ```
+@@ -34,3 +34,3 @@
+ //!
+-//! these methods also have a macro equivalent taking a [grammer expression](crate::gram_ref)
++//! these methods also have a macro equivalent taking a [grammar expression](crate::gram_ref)
+ //! ```
+@@ -62,3 +62,3 @@
+ //!
+-//! in addition, [`Cursor`] also provide several methods to simplify manual matching logic.
++//! in addition, [`Cursor`] also provides several methods to simplify manual matching logic.
+ //! ```
+@@ -84,3 +84,3 @@
+ //!
+-//! [`Cursor`] is usually used with custom enum based token list, which can be automaticly generated with the [`derive`](crate::derive) module.
++//! [`Cursor`] is usually used with custom enum based token list, which can be automatically generated with the [`derive`](crate::derive) module.
+ //! ```
+@@ -125,3 +125,3 @@
+ ///
+-/// the `eat` macro takes the [`Cursor`] and the expression, match it with [`Parse`](crate::modes::Parse) [`Mode`] and return `Result<Capture, Cursor::Error>`.
++/// the `eat` macro takes the [`Cursor`] and the expression, matches it with [`Parse`](crate::modes::Parse) [`Mode`] and returns `Result<Capture, Cursor::Error>`.
+ ///
+@@ -145,7 +145,7 @@
+ ///
+-/// the `match_map` macro takes the [`Cursor`] and a list of `pat => map` arms, and optionally an `else` arm at the end, and evaluate to the type of `map`.
++/// the `match_map` macro takes the [`Cursor`] and a list of `pat => map` arms, and optionally an `else` arm at the end, and evaluates to the type of `map`.
+ ///
+-/// it try match atomicly each `pat` in order with [`Capture`](crate::modes::Capture) [`Mode`], on first match, its `map` expression get evaluated as a result with [captures](crate::gram_ref#captures) binded by their name.
++/// it tries to match atomically each `pat` in order with [`Capture`](crate::modes::Capture) [`Mode`], on first match, its `map` expression gets evaluated as a result with [captures](crate::gram_ref#captures) bound by their name.
+ ///
+-/// else it evaluate the `else` arm as result if found, else it panic with [`unreachable!`].
++/// else it evaluates the `else` arm as result if found, else it panics with [`unreachable!`].
+ ///
+@@ -180,3 +180,3 @@
+ ///
+-/// the `test` macro takes the [`Cursor`] and the expression, match it with [`Test`] [`Mode`] and return `bool` as the result.
++/// the `test` macro takes the [`Cursor`] and the expression, matches it with [`Test`] [`Mode`] and returns `bool` as the result.
+ ///
+@@ -200,3 +200,3 @@
+ ///
+-/// the `try_eat` macro takes the [`Cursor`] and the expression, match it with [`Capture`](crate::modes::Capture) [`Mode`] and return `Option<Capture>`.
++/// the `try_eat` macro takes the [`Cursor`] and the expression, matches it with [`Capture`](crate::modes::Capture) [`Mode`] and returns `Option<Capture>`.
+ ///
+@@ -222,3 +222,3 @@
+ ///
+-/// `SimpleSpan` is a data strucure that represent a range of source code.
++/// `SimpleSpan` is a data structure that represents a range of source code.
+ ///
+@@ -320,5 +320,5 @@
+ /// # implementation guide
+-/// to implement `Cursor` for a custom type, the [`MatchAble`] must be specified, and the input and the offset must be provided though [`input`](Self::input), [`off`](Self::off) and [`off_mut`](Self::off_mut).
++/// to implement `Cursor` for a custom type, the [`MatchAble`] must be specified, and the input and the offset must be provided through [`input`](Self::input), [`off`](Self::off) and [`off_mut`](Self::off_mut).
+ ///
+-/// in addition, the `Cursor` [`Error`](Self::Error) type must be specified alongside its mapping from [`MatchError`] though [`map_error`](Self::map_error).
++/// in addition, the `Cursor` [`Error`](Self::Error) type must be specified alongside its mapping from [`MatchError`] through [`map_error`](Self::map_error).
+ ///
+@@ -470,3 +470,3 @@
+ 	///
+-	/// it fail atomicly, and return `None` on failure.
++	/// it fails atomically, and returns `None` on failure.
+ 	///
+@@ -490,3 +490,3 @@
+ 	///
+-	/// `test` uses [`Test`] [`Mode`], and return `false` on failure.
++	/// `test` uses [`Test`] [`Mode`], and returns `false` on failure.
+ 	///
+@@ -510,3 +510,3 @@
+ 	///
+-	/// `skip` uses [`MatchAble::skip_n`] under the hood, and act as noop at end of input.
++	/// `skip` uses [`MatchAble::skip_n`] under the hood, and acts as noop at end of input.
+ 	///
+@@ -550,3 +550,3 @@
+ 	///
+-	/// the generated [mismatch](crate::result::MatchErrorKind::MisMatch) or [incomplete](crate::result::MatchErrorKind::InComplete) [`MatchError`] depending if the `Cursor` is at the end of the input, then it get mapped by [`map_error`](Self::map_error).
++	/// the generated [mismatch](crate::result::MatchErrorKind::MisMatch) or [incomplete](crate::result::MatchErrorKind::InComplete) [`MatchError`] depending on whether the `Cursor` is at the end of the input, then it gets mapped by [`map_error`](Self::map_error).
+ 	///
+diff --git a/lib/src/derive.rs b/lib/src/derive.rs
+--- a/lib/src/derive.rs
++++ b/lib/src/derive.rs
+@@ -8,3 +8,3 @@
+ 
+-/// `match_do` generification for mathcing by token
++/// `match_do` generification for matching by token
+ #[doc(hidden)]
+@@ -25,3 +25,3 @@
+ 
+-/// `match_do` generification for mathcing by slice
++/// `match_do` generification for matching by slice
+ #[doc(hidden)]
+@@ -105,3 +105,3 @@
+ ///
+-/// `derive_slice_matchable` generate a [`MatchAble`] implementation for slice newtype structs with some core [`Matcher`](crate::Matcher).
++/// `derive_slice_matchable` generates a [`MatchAble`] implementation for slice newtype structs with some core [`Matcher`](crate::Matcher).
+ ///
+@@ -225,5 +225,5 @@
+ ///
+-/// the `derive_enum_matcher` is an attribute macro applied on enums that for each variant define a [`Matcher`](crate::Matcher) that matches one [token](MatchAble::Token) of that variant.
++/// the `derive_enum_matcher` is an attribute macro applied on enums that for each variant defines a [`Matcher`](crate::Matcher) that matches one [token](MatchAble::Token) of that variant.
+ ///
+-/// it take the [`MatchAble`] type, and define the [`Matcher`](crate::Matcher) as kebab case of the variant name.
++/// it takes the [`MatchAble`] type, and defines the [`Matcher`](crate::Matcher) as kebab case of the variant name.
+ ///
+diff --git a/lib/src/general.rs b/lib/src/general.rs
+--- a/lib/src/general.rs
++++ b/lib/src/general.rs
+@@ -45,3 +45,3 @@
+ ///
+-/// `atomic` takes a [`Matcher`] and returns a new [`Matcher`] that redirect matching to the input, and rewind to start offset on failure.
++/// `atomic` takes a [`Matcher`] and returns a new [`Matcher`] that redirects matching to the input, and rewinds to start offset on failure.
+ ///
+@@ -70,3 +70,3 @@
+ ///
+-/// `a` produce a [`Matcher`] that capture the current [token](MatchAble::Token) and test it by `pred`. if `pred` return `true` it matches with the token, else it fail.
++/// `a` produces a [`Matcher`] that captures the current [token](MatchAble::Token) and tests it by `pred`. if `pred` returns `true` it matches with the token, else it fails.
+ ///
+@@ -93,3 +93,3 @@
+ ///
+-/// `an` produce a [`Matcher`] that capture a [slice](MatchAble::Slice) of `n` [tokens](MatchAble::Token) and test it by `pred`. if `pred` return `true` it matches with the slice, else it fail.
++/// `an` produces a [`Matcher`] that captures a [slice](MatchAble::Slice) of `n` [tokens](MatchAble::Token) and tests it by `pred`. if `pred` returns `true` it matches with the slice, else it fails.
+ ///
+@@ -116,3 +116,3 @@
+ ///
+-/// `expected` produce a [`Matcher`] that always fail with [mismatch](crate::result::MatchErrorKind::MisMatch) and [incomplete](crate::result::MatchErrorKind::InComplete) [`MatchError`](crate::result::MatchError) with `expected` depending on the offset.
++/// `expected` produces a [`Matcher`] that always fails with [mismatch](crate::result::MatchErrorKind::MisMatch) and [incomplete](crate::result::MatchErrorKind::InComplete) [`MatchError`](crate::result::MatchError) with `expected` depending on the offset.
+ ///
+@@ -139,3 +139,3 @@
+ ///
+-/// `fail_with` produce a [`Matcher`] that always fail with a [Other](crate::result::MatchErrorKind::Other) [`MatchError`](crate::result::MatchError) of custom `msg`.
++/// `fail_with` produces a [`Matcher`] that always fails with an [Other](crate::result::MatchErrorKind::Other) [`MatchError`](crate::result::MatchError) of custom `msg`.
+ ///
+@@ -155,3 +155,3 @@
+ ///
+-/// `list` take an `item` and `sep` [`Matcher`]s and produce a [`Matcher`] that matches a non-empty list of `item`s separated by `sep`.
++/// `list` takes an `item` and `sep` [`Matcher`]s and produces a [`Matcher`] that matches a non-empty list of `item`s separated by `sep`.
+ ///
+@@ -182,3 +182,3 @@
+ ///
+-/// `delim_list` take a `start`, `item`, `sep` and `end` [`Matcher`]s and produce a [`Matcher`] that matches a maybe empty list of `item`s separated by `sep` and delimited by `start` and `end`.
++/// `delim_list` takes a `start`, `item`, `sep` and `end` [`Matcher`]s and produces a [`Matcher`] that matches a maybe empty list of `item`s separated by `sep` and delimited by `start` and `end`.
+ ///
+@@ -262,3 +262,3 @@
+ ///
+-/// wrapped functions dont get [`Mode`] generifications treatment, for that it is advised to use regular [`Matcher`]s for general cases.
++/// wrapped functions don't get [`Mode`] generifications treatment, for that it is advised to use regular [`Matcher`]s for general cases.
+ ///
+diff --git a/lib/src/gram_ref.rs b/lib/src/gram_ref.rs
+--- a/lib/src/gram_ref.rs
++++ b/lib/src/gram_ref.rs
+@@ -1,3 +1,3 @@
+-//! # grammmar reference
++//! # grammar reference
+ //! the grammar expressions is a matching construct / DSL inspired by the typical metasyntax languages with a rust flavor.
+ //!
+@@ -25,7 +25,7 @@
+ //! ```
+-//! the any atom (`_`) matches exactly 1 [token](MatchAble::Token), and mostly fail due to incomplete input.
++//! the any atom (`_`) matches exactly 1 [token](MatchAble::Token), and mostly fails due to incomplete input.
+ //!
+-//! under the hode, it calls [`MatchAble::skip_n(n: 1)`](MatchAble::skip_n) on the matched type.
++//! under the hood, it calls [`MatchAble::skip_n(n: 1)`](MatchAble::skip_n) on the matched type.
+ //!
+@@ -45,3 +45,3 @@
+ //!
+-//! these tokens can be literials, [simple paths](https://doc.rust-lang.org/reference/paths.html#simple-paths) including identifiers, and expression blocks that get inserted directly in the generated code.
++//! these tokens can be literals, [simple paths](https://doc.rust-lang.org/reference/paths.html#simple-paths) including identifiers, and expression blocks that get inserted directly in the generated code.
+ //!
+@@ -90,9 +90,9 @@
+ //! ```
+-//! the call atom matches a compound matcher by a set of argument.
++//! the call atom matches a compound matcher by a set of arguments.
+ //!
+-//! a compound matcher is a `Fn(..Matcher) -> Matcher`, the passed arguments are transformed into ananymous [`Matcher`]s and passed to the function, then its return [`Matcher`] is matched against.
++//! a compound matcher is a `Fn(..Matcher) -> Matcher`, the passed arguments are transformed into anonymous [`Matcher`]s and passed to the function, then its return [`Matcher`] is matched against.
+ //!
+-//! the arguments are matcher declerations with a root expression, an optional matched type specifier (default to the current one), and an optional [map](#mapping) for the root [capture](#captures).
++//! the arguments are matcher declarations with a root expression, an optional matched type specifier (default to the current one), and an optional [map](#mapping) for the root [capture](#captures).
+ //!
+@@ -104,3 +104,3 @@
+ //! ```
+-//! the group expression is a grammer expression enclosed by paranthesis.
++//! the group expression is a grammar expression enclosed by parenthesis.
+ //!
+@@ -190,7 +190,7 @@
+ //! ```
+-//! #### canocical form
+-//! `[min..max]` match the [atom](#atoms) between `min` and `max` (inclusive) times.
++//! #### canonical form
++//! `[min..max]` matches the [atom](#atoms) between `min` and `max` (inclusive) times.
+ //!
+-//! `min` and `max` are optional and default to `0` and infinity respectifily.
++//! `min` and `max` are optional and default to `0` and infinity respectively.
+ //! ```
+@@ -240,3 +240,3 @@
+ //! ```
+-//! the sequence expression match multiple expressions separated by whitespaces in order.
++//! the sequence expression matches multiple expressions separated by whitespaces in order.
+ //!
+@@ -300,3 +300,3 @@
+ //! ```
+-//! the capture matches an expression then extract the matched section as a result.
++//! the capture matches an expression then extracts the matched section as a result.
+ //!
+@@ -325,5 +325,5 @@
+ //! ### repetition
+-//! captures support [repetition](#repetitions), either by infering it from the optionality of the path ([optional](#repetitions) units, [or](#or-expression) and [imply](#imply-expression) expressions), or by manually specifing it.
++//! captures support [repetition](#repetitions), either by inferring it from the optionality of the path ([optional](#repetitions) units, [or](#or-expression) and [imply](#imply-expression) expressions), or by manually specifying it.
+ //!
+-//! repetition override the capture resolved type, it become [`Option<T>`] if repetition is optional, and [`Vec<T>`] otherwise.
++//! repetition overrides the capture resolved type, it becomes [`Option<T>`] if repetition is optional, and [`Vec<T>`] otherwise.
+ //!
+@@ -340,5 +340,5 @@
+ //! ```
+-//! the capture type specifier specifies the base type of the capture (without the [repetition](#repetition)) when requried.
++//! the capture type specifier specifies the base type of the capture (without the [repetition](#repetition)) when required.
+ //!
+-//! captures doesnt always require to specify its type, only when the default type doesnt work in contexes requiring it: [terms](grammar!#term) and matchers root capture, [generated items](#generated-items) nested captures.
++//! captures don't always need to specify their type, only when the default type doesn't work in contexts requiring it: [terms](grammar!#term) and matchers root capture, [generated items](#generated-items) nested captures.
+ //!
+@@ -365,3 +365,3 @@
+ //!
+-//! it is specified though `=> expr` after the expression, and the matched section is binded as the capture name.
++//! it is specified through `=> expr` after the expression, and the matched section is bound as the capture name.
+ //!
+@@ -470,5 +470,5 @@
+ //! ## generated items
+-//! in grammar decleration, [structural](#structural-captures) and [enumerated](#enumerated-captures) captures can generate there own items, structs and enums respectifilly.
++//! in grammar declaration, [structural](#structural-captures) and [enumerated](#enumerated-captures) captures can generate their own items, structs and enums respectively.
+ //!
+-//! these types are generated by specifing `struct ident?` or `enum ident?` in the [type specifier](#type-specifier), these types are named as `ident` if given, else the pascal case of the capture name.
++//! these types are generated by specifying `struct ident?` or `enum ident?` in the [type specifier](#type-specifier), these types are named as `ident` if given, else the pascal case of the capture name.
+ //!
+diff --git a/lib/src/lib.rs b/lib/src/lib.rs
+--- a/lib/src/lib.rs
++++ b/lib/src/lib.rs
+@@ -10,5 +10,5 @@
+ //!
+-//! it also adhere to rust zero cost abstraction principle, it leverage the power of [GATs](Mode) to enable its [`Matcher`]s get monomorphized into highly optimized code doing only the required [features](Mode#features).
++//! it also adheres to rust zero cost abstraction principle, it leverages the power of [GATs](Mode) to enable its [`Matcher`]s to get monomorphized into highly optimized code doing only the required [features](Mode#features).
+ //!
+-//! it also utilize zero copy parsing, it uses and produces [slices](MatchAble::slice) of the input by default to minimize allocations.
++//! it also utilizes zero copy parsing, it uses and produces [slices](MatchAble::slice) of the input by default to minimize allocations.
+ //!
+@@ -16,9 +16,9 @@
+ //! ## simple DSL for simple cases
+-//! gramex feature its own custom [DSL](gram_ref), inspired by the typical metasyntax language, it has rich semantics. including and not limited to: [repetitions](gram_ref#repetitions), [negations](gram_ref#not-operator), [lookaheads](gram_ref#near-operator), [intersections](gram_ref#and-expression), [alternations](gram_ref#or-expression) and [implications](gram_ref#imply-expression).
++//! gramex features its own custom [DSL](gram_ref), inspired by the typical metasyntax language, it has rich semantics, including but not limited to: [repetitions](gram_ref#repetitions), [negations](gram_ref#not-operator), [lookaheads](gram_ref#near-operator), [intersections](gram_ref#and-expression), [alternations](gram_ref#or-expression) and [implications](gram_ref#imply-expression).
+ //!
+-//! this grammar expressions support powerfull [capturing abilities](gram_ref#captures), with [nesting](gram_ref#structural-captures) and [enumeration](gram_ref#enumerated-captures) support, and [mapping](gram_ref#mapping) into [auto generated types](gram_ref#generated-items).
++//! these grammar expressions support powerful [capturing abilities](gram_ref#captures), with [nesting](gram_ref#structural-captures) and [enumeration](gram_ref#enumerated-captures) support, and [mapping](gram_ref#mapping) into [auto generated types](gram_ref#generated-items).
+ //!
+-//! this expressions can be used everywhere, declared inside [standalone definitions](crate::grammar), or used [inline](parse!) in the normal code, and even enriching the [imperative cursors](cursor::eat).
++//! these expressions can be used everywhere, declared inside [standalone definitions](crate::grammar), or used [inline](parse!) in the normal code, and even enriching the [imperative cursors](cursor::eat).
+ //!
+@@ -26,4 +26,4 @@
+ //!
+-//! ## imperative cursors for advance cases
+-//! gramex doesnt only generate simple parsers, it can empowers [advance parsers](cursor#why) through its imperative mode: the parsing [`cursor`]s.
++//! ## imperative cursors for advanced cases
++//! gramex doesn't only generate simple parsers, it can empower [advanced parsers](cursor#why) through its imperative mode: the parsing [`cursor`]s.
+ //!
+@@ -32,3 +32,3 @@
+ //!
+-//! cursors are typically used with custom tokens lists, which can be [automaticly derived](derive::derive_slice_matchable) with their own [dedicated matchers](derive::derive_enum_matcher).
++//! cursors are typically used with custom tokens lists, which can be [automatically derived](derive::derive_slice_matchable) with their own [dedicated matchers](derive::derive_enum_matcher).
+ //!
+@@ -90,3 +90,3 @@
+ //! # feature flags
+-//! gramex is minimal by default, and its featureset can be fainly selected by its feature flags.
++//! gramex is minimal by default, and its featureset can be finely selected by its feature flags.
+ //! - `std` (enabled by default): support for the standard library types.
+diff --git a/lib/src/private.rs b/lib/src/private.rs
+--- a/lib/src/private.rs
++++ b/lib/src/private.rs
+@@ -18,3 +18,3 @@
+ 
+-/// coercion the type into its `&MatchAble` version, using method expression coercion
++/// coerce the type into its `&MatchAble` version, using method expression coercion
+ pub trait AsMatchAble {
+@@ -26,3 +26,3 @@
+ 
+-/// coercion the type into its `&mut Cursor` version, using method expression coercion
++/// coerce the type into its `&mut Cursor` version, using method expression coercion
+ pub trait AsCursor<T: ?Sized> {
+diff --git a/lib/src/result.rs b/lib/src/result.rs
+--- a/lib/src/result.rs
++++ b/lib/src/result.rs
+@@ -19,3 +19,3 @@
+ pub enum Expected {
+-	/// undifined `Expected` value.
++	/// undefined `Expected` value.
+ 	///
+@@ -36,3 +36,3 @@
+ 	///
+-	/// usefull for [`skip_n`](crate::MatchAble::skip_n) and anything like it.
++	/// useful for [`skip_n`](crate::MatchAble::skip_n) and anything like it.
+ 	///
+@@ -52,3 +52,3 @@
+ 	///
+-	/// the most common `Expected` kind, being olny any string.
++	/// the most common `Expected` kind, being only any string.
+ 	///
+@@ -140,3 +140,3 @@
+ ///
+-/// the `MatchErrorKind` encode the kind of [`MatchError`], wheather it is [mismatch](Self::MisMatch), [incomplete](Self::InComplete), and whatever.
++/// the `MatchErrorKind` encodes the kind of [`MatchError`], whether it is [mismatch](Self::MisMatch), [incomplete](Self::InComplete), and whatever.
+ ///
+@@ -164,3 +164,3 @@
+ 
+-	/// an incomplete input while [`Expected`] someething.
++	/// an incomplete input while [`Expected`] something.
+ 	///
+@@ -222,7 +222,7 @@
+ ///
+-/// it is composed of a [`MatchErrorKind`] representing its kind, and `off`set representing where it occured, and optionally an [`Expected`] representing what was expected to be.
++/// it is composed of a [`MatchErrorKind`] representing its kind, and `off`set representing where it occurred, and optionally an [`Expected`] representing what was expected to be.
+ ///
+-/// `MatchError` is generally constructed through the varoius constructors provided by it.
++/// `MatchError` is generally constructed through the various constructors provided by it.
+ #[derive(Debug, Clone, PartialEq, Eq, Hash)]
+@@ -230,3 +230,3 @@
+ 	pub kind: MatchErrorKind,
+-	/// the offset of where the error occured
++	/// the offset of where the error occurred
+ 	pub off: usize,
+@@ -238,4 +238,4 @@
+ 	/// create a `MatchError` of kind [`MisMatch`](MatchErrorKind::MisMatch).
+ 	///
+-	/// it takes what is [`Expected`] and the offset where the error occured.
++	/// it takes what is [`Expected`] and the offset where the error occurred.
+ 	///
+@@ -255,4 +255,4 @@
+ 	/// create a `MatchError` of kind [`InComplete`](MatchErrorKind::InComplete).
+ 	///
+-	/// it takes what is [`Expected`] and the offset where the error occured.
++	/// it takes what is [`Expected`] and the offset where the error occurred.
+ 	///
+@@ -278,3 +278,3 @@
+ 	///
+-	/// it take an offset where the error occured.
++	/// it takes an offset where the error occurred.
+ 	///
+@@ -305,3 +305,3 @@
+ 	///
+-	/// it takes the offset where the error occured.
++	/// it takes the offset where the error occurred.
+ 	///
+@@ -320,3 +320,3 @@
+ 	///
+-	/// it takes a message and the offset where the error occured.
++	/// it takes a message and the offset where the error occurred.
+ 	///
+diff --git a/lib/src/str.rs b/lib/src/str.rs
+--- a/lib/src/str.rs
++++ b/lib/src/str.rs
+@@ -21,3 +21,3 @@
+ //!
+-//! these [`Matcher`]s matches with the [`str`] slice they matched.
++//! these [`Matcher`]s match with the [`str`] slice they matched.
+ //!
+@@ -34,3 +34,3 @@
+ //!
+-//! the `str` module export multiple [`Matcher`]s that matches characters of common kinds and patterns, like [`alpha`], [`ws`], [`lower`], [`hex`]...
++//! the `str` module exports multiple [`Matcher`]s that match characters of common kinds and patterns, like [`alpha`], [`ws`], [`lower`], [`hex`]...
+ //!
+@@ -105,6 +105,6 @@
+ 				"matches ", $kind, ".\n\n",
+-				"`", stringify!($name), "` is a [`Matcher`] that matches a character satisfing ",
+-				$satisfy, ", and capture it as `str` slice.\n\n",
++				"`", stringify!($name), "` is a [`Matcher`] that matches a character satisfying ",
++				$satisfy, ", and captures it as `str` slice.\n\n",
+ 				$("this is unicode aware, for ascii only version, see [`", $ascii_equiv, "`].\n\n",)?
+@@ -230,3 +230,3 @@
+ ///
+-/// `digit` create a [`Matcher`] that matches a character that is a digit of `radix` between `2` and `36` inclusive.
++/// `digit` creates a [`Matcher`] that matches a character that is a digit of `radix` between `2` and `36` inclusive.
+ ///

@@ -1,0 +1,35 @@
+## str
+
+## array
+
+## list
+
+## map
+
+# rich types
+
+## uuid
+
+## inst
+
+## duration
+
+## url
+
+## bigint
+
+## decimal
+
+## bytes
+
+## color
+
+## semver
+
+# apendix
+
+## standared metadata
+
+## evolution guide
+
+## typeid maps

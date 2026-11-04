@@ -27,7 +27,7 @@
 mod grammar {
 	use gramex::{Matcher, general::pos, result::Expected};
 
-	gramex::gramex! { for str;
+	gramex::grammar! { for str;
 		// -- plain matchers --------------------------------------------
 		let digit = '0'..'9';
 		let alpha = 'a'..'z' | 'A'..'Z';
@@ -175,6 +175,7 @@ use std::assert_matches;
 
 use gramex::{
 	Matcher,
+	general::list,
 	result::{MatchError, MatchErrorKind},
 };
 use grammar::*;
@@ -609,11 +610,14 @@ fn check_err_on_short_input() {
 
 #[test]
 fn try_match_returns_some_with_captures() {
-	let Some((a, c)) = try_match!("abc", a:'a' 'b'+ c?:'c') else {
+	let Some((a, c, d)) =
+		try_match!(for str, "abca,a", a:'a' 'b'+ c?:'c' d:list<'a', ','>)
+	else {
 		panic!("expected a match");
 	};
 	assert_eq!(a, "a");
 	assert_eq!(c, Some("c"));
+	assert_eq!(d, vec!["a", "a"]);
 }
 
 #[test]
@@ -643,7 +647,7 @@ fn try_match_repeated_capture_consumes_full_run() {
 #[test]
 fn try_match_with_explicit_for_prefix() {
 	// mirrors the example exactly
-	let Some((a, c)) = try_match!(for str, "abc", a:'a' 'b'+ c?:'c') else {
+	let Some((a, c)) = try_match!(for str, "abc", a:'a' 'b'+ c?:'c' ) else {
 		panic!("expected a match");
 	};
 	assert_eq!(a, "a");
@@ -687,7 +691,7 @@ fn parse_err_excess() {
 
 #[test]
 fn matcher_value_test_method() {
-	let m = matcher!(for str: "hello");
+	let m = matcher!(for str, "hello");
 	let mut off = 0usize;
 	assert!(m.test("hello world", &mut off));
 	assert_eq!(off, 5);
@@ -695,7 +699,7 @@ fn matcher_value_test_method() {
 
 #[test]
 fn matcher_value_is_reusable_across_inputs() {
-	let m = matcher!(for str: '0'..'9');
+	let m = matcher!(for str, '0'..'9');
 	let mut off1 = 0usize;
 	let mut off2 = 0usize;
 	assert!(m.test("5x", &mut off1));
@@ -704,7 +708,7 @@ fn matcher_value_is_reusable_across_inputs() {
 
 #[test]
 fn matcher_value_check_method_reports_mismatch_kind() {
-	let m = matcher!(for str: "abc");
+	let m = matcher!(for str, "abc");
 	let mut off = 0usize;
 	let err = m.check("xyz", &mut off).unwrap_err();
 	assert!(omatches!(err.kind, MatchErrorKind::MisMatch(_)));
@@ -712,17 +716,17 @@ fn matcher_value_check_method_reports_mismatch_kind() {
 
 #[test]
 fn matcher_value_parse_matches_parse_macro() {
-	// straight from the example: matcher!().parse(...) and parse!(...)
+	// straight from the example: matcher!().parse(...) an, parse!(...)
 	// should agree exactly, byte for byte.
 	assert_eq!(
 		parse!("abc", a:'a' 'b'+ c?:'c'),
-		matcher!(for str: a:'a' 'b'+ c?:'c').parse("abc", &mut 0)
+		matcher!(for str, a:'a' 'b'+ c?:'c').parse("abc", &mut 0)
 	);
 }
 
 #[test]
 fn matcher_value_capture_matches_try_match_macro() {
-	let m = matcher!(for str: a:'a' 'b'+ c?:'c');
+	let m = matcher!(for str, a:'a' 'b'+ c?:'c');
 	let mut off = 0usize;
 	assert_eq!(try_match!("abbc", a:'a' 'b'+ c?:'c'), m.capture("abbc", &mut off));
 }
