@@ -1,0 +1,3 @@
+cargo install --path . --root ./build/
+cp ./build/bin/* ~/.local/bin
+rm -rf build
