@@ -1,6 +1,6 @@
 use std::{
 	env::current_dir,
-	fs::{create_dir, remove_dir_all, remove_file},
+	fs::{create_dir, create_dir_all, remove_dir_all, remove_file},
 	os::unix::{fs::symlink, prelude::OsStrExt},
 	path::{Path, PathBuf},
 };
@@ -31,7 +31,7 @@ fn main() -> Result<(), Error> {
 	if output.exists() {
 		remove_dir_all(&output)?;
 	}
-	create_dir(output)?;
+	create_dir_all(output)?;
 
 	let target = &src.join("target");
 	if !target.exists() {

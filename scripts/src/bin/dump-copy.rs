@@ -2,7 +2,7 @@ use clap::Parser;
 use scripts::{Error, copy_all};
 use std::{
 	fs::{copy, create_dir_all, remove_dir_all, remove_file},
-	path::{Path, PathBuf},
+	path::PathBuf,
 };
 
 const DUMP_DIR: &str = "/disk2/dump-files/dumpar";
